@@ -1,6 +1,11 @@
 providers = ["node"]
 
+# Nuxt 4 / Vite 7 / Tailwind v4 exigent Node 20+ (par défaut Nixpacks
+# prend Node 18, ce qui casse le build).
+[variables]
+NIXPACKS_NODE_VERSION = "22"
+
 # Génère un site 100% statique dans .output/public
-# (servi ensuite par NGINX via le Build Type "Static" de Dokploy).
+# (servi ensuite par NGINX via le Build Type "Nixpacks" + Publish Directory).
 [phases.build]
 cmds = ["npm run generate"]
