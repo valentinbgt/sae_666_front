@@ -1,0 +1,6 @@
+providers = ["node"]
+
+# Génère un site 100% statique dans .output/public
+# (servi ensuite par NGINX via le Build Type "Static" de Dokploy).
+[phases.build]
+cmds = ["npm run generate"]
