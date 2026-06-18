@@ -14,9 +14,7 @@ aptPkgs = ["nginx"]
 [phases.build]
 cmds = [
     "npm run generate",
-    "cp nginx.conf /etc/nginx/conf.d/default.conf",
-    "rm -f /etc/nginx/sites-enabled/default",
 ]
 
 [start]
-cmd = "nginx -g 'daemon off;'"
+cmd = "nginx -c /app/nginx.conf -g 'daemon off;'"
