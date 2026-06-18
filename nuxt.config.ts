@@ -29,5 +29,20 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ['@nuxt/icon'],
+  modules: ['@nuxt/icon', '@nuxtjs/i18n'],
+
+  i18n: {
+    locales: [
+      { code: 'fr', iso: 'fr-FR', file: 'fr.json', name: 'Français' },
+      { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' }
+    ],
+    defaultLocale: 'fr',
+    strategy: 'prefix_except_default',
+    lazy: true,
+    langDir: 'locales',
+    compilation: {
+      strictMessage: false,
+      escapeHtml: false
+    }
+  },
 })

@@ -22,37 +22,29 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <span class="text-primaire/80 text-xs font-semibold tracking-widest uppercase">
-              Jeu de société tactique — 2 à 4 joueurs
+              {{ $t('home.hero_badge') }}
             </span>
           </div>
 
           <!-- Titre -->
-          <h1 class="text-primaire text-6xl font-bold leading-tight mb-6 animate-fade-up delay-100" style="font-family: Georgia, serif;">
-            Le chemin<br />
-            <em class="text-cta not-italic" style="font-style: italic;">se crée</em> en<br />
-            avançant.
-          </h1>
+          <h1 class="text-primaire text-6xl font-bold leading-tight mb-6 animate-fade-up delay-100" style="font-family: Georgia, serif;" v-html="$t('home.hero_title')"></h1>
 
           <!-- Description -->
-          <p class="text-primaire/70 text-base leading-relaxed mb-10 max-w-md animate-fade-up delay-200">
-            Prenez la tête d'une expédition de grenouilles héroïques. Construisez le marais, tendez des pièges
-            et soyez le premier à conquérir le Trésor Perdu et le cœur de la Princesse.
-            <strong class="text-primaire font-semibold">Chaque tuile posée change votre destin.</strong>
-          </p>
+          <p class="text-primaire/70 text-base leading-relaxed mb-10 max-w-md animate-fade-up delay-200" v-html="$t('home.hero_desc')"></p>
 
           <!-- Boutons -->
           <div class="flex items-center gap-4 animate-fade-up delay-300">
             <NuxtLink
-              to="/le-jeu"
+              :to="localePath('/le-jeu')"
               class="inline-flex items-center px-6 py-3 rounded-full text-primaire text-xs font-bold tracking-widest uppercase btn-filled"
             >
-              Découvrir le jeu
+              {{ $t('home.hero_btn_game') }}
             </NuxtLink>
             <NuxtLink
-              to="/regles"
+              :to="localePath('/regles')"
               class="inline-flex items-center px-6 py-3 rounded-full border border-primaire/50 text-primaire text-xs font-bold tracking-widest uppercase hover:border-primaire transition"
             >
-              Voir les règles
+              {{ $t('home.hero_btn_rules') }}
             </NuxtLink>
           </div>
         </div>
@@ -124,12 +116,9 @@
         <!-- En-tête -->
         <div class="mb-16 max-w-2xl">
           <p class="text-[#E7D6B9] text-xs font-bold tracking-[0.2em] uppercase mb-4 flex items-center gap-4">
-            <span class="w-6 h-px bg-[#E7D6B9]"></span> Les piliers du jeu
+            <span class="w-6 h-px bg-[#E7D6B9]"></span> {{ $t('home.sec2_kicker') }}
           </p>
-          <h2 class="text-[#F3E7D3] text-5xl md:text-6xl font-bold leading-tight" style="font-family: Georgia, serif;">
-            Cinq valeurs,<br />
-            une aventure unique.
-          </h2>
+          <h2 class="text-[#F3E7D3] text-5xl md:text-6xl font-bold leading-tight" style="font-family: Georgia, serif;" v-html="$t('home.sec2_title')"></h2>
         </div>
 
         <!-- Grille de cartes -->
@@ -141,9 +130,9 @@
               <div class="w-12 h-12 bg-[#3B2513] rounded-full flex items-center justify-center mb-6 text-[#F3E7D3]">
                 <Icon name="ph:navigation-arrow-fill" class="w-6 h-6" />
               </div>
-              <h3 class="text-xl font-bold mb-3">Stratégie</h3>
+              <h3 class="text-xl font-bold mb-3">{{ $t('home.pil1_title') }}</h3>
               <p class="text-sm opacity-80 leading-relaxed">
-                Anticipez, planifiez, contrôlez le terrain. La victoire sourit à la grenouille qui voit au-delà du prochain nénuphar.
+                {{ $t('home.pil1_desc') }}
               </p>
             </div>
 
@@ -152,9 +141,9 @@
               <div class="w-12 h-12 bg-[#3B2513] rounded-full flex items-center justify-center mb-6 text-[#F3E7D3]">
                 <Icon name="ph:users-fill" class="w-6 h-6" />
               </div>
-              <h3 class="text-xl font-bold mb-3">Convivialité</h3>
+              <h3 class="text-xl font-bold mb-3">{{ $t('home.pil2_title') }}</h3>
               <p class="text-sm opacity-80 leading-relaxed">
-                Des parties courtes, rythmées et pleines de rebondissements. Rires et trahisons garantis autour de la table.
+                {{ $t('home.pil2_desc') }}
               </p>
             </div>
 
@@ -163,9 +152,9 @@
               <div class="w-12 h-12 bg-[#3B2513] rounded-full flex items-center justify-center mb-6 text-[#F3E7D3]">
                 <Icon name="ph:info-fill" class="w-6 h-6" />
               </div>
-              <h3 class="text-xl font-bold mb-3">Créativité</h3>
+              <h3 class="text-xl font-bold mb-3">{{ $t('home.pil3_title') }}</h3>
               <p class="text-sm opacity-80 leading-relaxed">
-                Le plateau de jeu n'existe pas. C'est vous qui le construisez tuile par tuile. Aucune partie ne se ressemble.
+                {{ $t('home.pil3_desc') }}
               </p>
             </div>
           </div>
@@ -182,9 +171,9 @@
               <div class="w-12 h-12 bg-[#3B2513] rounded-full flex items-center justify-center mb-6 text-[#F3E7D3]">
                 <Icon name="ph:shapes-fill" class="w-6 h-6" />
               </div>
-              <h3 class="text-xl font-bold mb-3">Équité</h3>
+              <h3 class="text-xl font-bold mb-3">{{ $t('home.pil4_title') }}</h3>
               <p class="text-sm opacity-80 leading-relaxed">
-                Chaque expédition débute avec le même équipement de base. Seuls vos choix feront la différence.
+                {{ $t('home.pil4_desc') }}
               </p>
             </div>
 
@@ -193,9 +182,9 @@
               <div class="w-12 h-12 bg-[#3B2513] rounded-full flex items-center justify-center mb-6 text-[#F3E7D3]">
                 <Icon name="ph:eye-fill" class="w-6 h-6" />
               </div>
-              <h3 class="text-xl font-bold mb-3">Accessibilité</h3>
+              <h3 class="text-xl font-bold mb-3">{{ $t('home.pil5_title') }}</h3>
               <p class="text-sm opacity-80 leading-relaxed">
-                Des règles qui s'expliquent en 5 minutes. Simple à apprendre, mais délicieusement complexe à maîtriser.
+                {{ $t('home.pil5_desc') }}
               </p>
             </div>
             
@@ -213,13 +202,10 @@
           <div class="flex flex-col items-center gap-4 mb-8">
             <Icon name="ph:book-open" class="w-7 h-7 text-[#F3E7D3]" />
             <span class="text-[#F3E7D3] text-xs font-bold tracking-[0.2em] uppercase opacity-80">
-              COMMENT JOUER
+              {{ $t('home.sec3_kicker') }}
             </span>
           </div>
-          <h2 class="text-[#F3E7D3] text-5xl md:text-6xl font-bold leading-tight" style="font-family: Georgia, serif;">
-            La mécanique en<br />
-            quatre actes.
-          </h2>
+          <h2 class="text-[#F3E7D3] text-5xl md:text-6xl font-bold leading-tight" style="font-family: Georgia, serif;" v-html="$t('home.sec3_title')"></h2>
         </div>
 
         <!-- Grid -->
@@ -231,9 +217,9 @@
               <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">01</span>
               <img src="/images/assets/grenouille.png" alt="Grenouille" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
             </div>
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Incarner une grenouille</h3>
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act1_title') }}</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
-              Chaque joueur reçoit un deck de départ incluant une carte clé unique. C'est votre secret et votre objectif stratégique principal.
+              {{ $t('home.act1_desc') }}
             </p>
           </div>
 
@@ -252,9 +238,9 @@
               </div>
 
             </div>
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Construire la carte</h3>
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act2_title') }}</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
-              Posez une carte terrain par tour pour former des chemins interconnectés qui s'assemblent dangereusement vers le coffre central.
+              {{ $t('home.act2_desc') }}
             </p>
           </div>
 
@@ -264,9 +250,9 @@
               <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">03</span>
               <img src="/images/assets/pierre_section3.png" alt="Objets" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
             </div>
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Jouer des objets</h3>
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act3_title') }}</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
-              Utilisez des reliques poisseuses pour modifier l'environnement, booster votre propre chemin ou saboter allègrement celui de vos adversaires.
+              {{ $t('home.act3_desc') }}
             </p>
           </div>
 
@@ -276,9 +262,9 @@
               <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">04</span>
               <img src="/images/assets/coffre_section3.png" alt="Coffre" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
             </div>
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Atteindre le coffre</h3>
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act4_title') }}</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
-              Le premier batracien à relier continuellement sa clé au coffre remporte la partie. Soyez rusé, soyez rapide. Croâ !
+              {{ $t('home.act4_desc') }}
             </p>
           </div>
 
@@ -300,11 +286,9 @@
       <div class="max-w-5xl w-full px-6 relative z-10 flex flex-col items-center text-center">
         <!-- Header -->
         <span class="text-[#E7D6B9] text-xs font-bold tracking-[0.2em] uppercase mb-6 mt-16">
-          LA VISION
+          {{ $t('home.sec4_kicker') }}
         </span>
-        <h2 class="text-[#F3E7D3] text-5xl md:text-6xl font-bold leading-tight mb-12" style="font-family: Georgia, serif;">
-          Un univers qui<br />grandit avec vous.
-        </h2>
+        <h2 class="text-[#F3E7D3] text-5xl md:text-6xl font-bold leading-tight mb-12" style="font-family: Georgia, serif;" v-html="$t('home.sec4_title')"></h2>
 
         <!-- Decorations (Champignon et Empreinte) -->
         <img src="/images/assets/champignon.png" alt="Champignon" class="absolute left-0 md:left-8 top-[280px] w-16 md:w-20 opacity-40 -rotate-12 pointer-events-none hidden md:block" />
@@ -312,7 +296,7 @@
 
         <!-- Paragraph -->
         <p class="text-[#F3E7D3]/80 text-lg md:text-xl leading-relaxed max-w-3xl mb-24">
-          Crooak n'est pas qu'un simple passe-temps d'un soir. C'est un terrain de jeu modulaire conçu pour devenir une référence dans l'univers des jeux de pose de tuiles. Une expérience qui mêle intimement construction et interaction directe, conçue pour durer éternellement dans vos ludothèques.
+          {{ $t('home.sec4_desc') }}
         </p>
 
         <!-- 3 Cards -->
@@ -320,25 +304,25 @@
           <!-- Card 1 -->
           <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform hover:-translate-y-2 border border-white/5">
             <Icon name="ph:stack" class="w-8 h-8 text-[#E7D6B9] mb-6" />
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Pérennité</h3>
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.vis1_title') }}</h3>
             <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
-              Des extensions à venir et des guides de grenouilles. Le marais s'étend.
+              {{ $t('home.vis1_desc') }}
             </p>
           </div>
           <!-- Card 2 -->
           <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform hover:-translate-y-2 border border-white/5">
             <Icon name="ph:map-pin" class="w-8 h-8 text-[#E7D6B9] mb-6" />
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Innovation</h3>
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.vis2_title') }}</h3>
             <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
-              Un système où la topographie évolue à chaque pose. Un champ de bataille vivant.
+              {{ $t('home.vis2_desc') }}
             </p>
           </div>
           <!-- Card 3 -->
           <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform hover:-translate-y-2 border border-white/5">
             <Icon name="ph:user" class="w-8 h-8 text-[#E7D6B9] mb-6" />
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Rassemblement</h3>
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.vis3_title') }}</h3>
             <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
-              Un design intergénérationnel. Des règles fluides pour tous les joueurs.
+              {{ $t('home.vis3_desc') }}
             </p>
           </div>
         </div>
@@ -356,26 +340,23 @@
         <img src="/favicon.png" alt="Logo Crooak" class="w-24 h-24 md:w-28 md:h-28 object-contain mb-8 drop-shadow-md" />
 
         <!-- Titre -->
-        <h2 class="text-[#F3E7D3] text-5xl md:text-7xl font-bold leading-tight mb-8" style="font-family: Georgia, serif;">
-          Prêt à poser la<br />
-          <span class="italic">première tuile ?</span>
-        </h2>
+        <h2 class="text-[#F3E7D3] text-5xl md:text-7xl font-bold leading-tight mb-8" style="font-family: Georgia, serif;" v-html="$t('home.sec5_title')"></h2>
 
         <!-- Paragraphe -->
         <p class="text-[#F3E7D3]/90 text-lg md:text-xl leading-relaxed max-w-2xl mb-12">
-          Rejoins la communauté Crooak dès maintenant. Précommande ton édition fondateurs et gagne des cartes "objet" exclusives.
+          {{ $t('home.sec5_desc') }}
         </p>
 
         <!-- Boutons -->
         <div class="flex flex-col md:flex-row items-center gap-6">
           <!-- Bouton Précommander -->
-          <NuxtLink to="/precommander" class="bg-[#2E150D] text-[#F3E7D3] px-8 py-4 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-[#1A0A06] transition-colors shadow-lg">
-            Précommander (Édition Base)
+          <NuxtLink :to="localePath('/precommander')" class="bg-[#2E150D] text-[#F3E7D3] px-8 py-4 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-[#1A0A06] transition-colors shadow-lg">
+            {{ $t('home.sec5_btn_preorder') }}
           </NuxtLink>
 
           <!-- Bouton Découvrir -->
-          <NuxtLink to="/precommander" class="bg-transparent border border-[#F3E7D3] text-[#F3E7D3] px-8 py-4 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-[#F3E7D3] hover:text-[#2E150D] transition-colors shadow-lg">
-            Découvrir l'édition Deluxe
+          <NuxtLink :to="localePath('/precommander')" class="bg-transparent border border-[#F3E7D3] text-[#F3E7D3] px-8 py-4 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-[#F3E7D3] hover:text-[#2E150D] transition-colors shadow-lg">
+            {{ $t('home.sec5_btn_deluxe') }}
           </NuxtLink>
         </div>
 
@@ -386,3 +367,7 @@
 
   </div>
 </template>
+
+<script setup>
+const localePath = useLocalePath()
+</script>

@@ -1,3 +1,8 @@
+<script setup lang="ts">
+const { email, loading, success, error, subscribe } = useNewsletter()
+const localePath = useLocalePath()
+</script>
+
 <template>
   <footer class="bg-[#2E150D] text-[#F3E7D3] pt-20 pb-8 px-6 md:px-16 w-full border-t border-white/5 relative z-20">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start mb-16 gap-12">
@@ -7,19 +12,24 @@
         <p class="text-sm opacity-80 mb-8 leading-relaxed max-w-[90%]">
           Inscrivez-vous à notre newsletter pour recevoir les dernières nouvelles, les aperçus des extensions et des offres exclusives.
         </p>
-        <form class="flex items-center gap-4" @submit.prevent>
-          <input 
-            type="email" 
-            placeholder="Votre email" 
+        <form class="flex items-center gap-4" @submit.prevent="subscribe">
+          <input
+            v-model="email"
+            type="email"
+            placeholder="Votre email"
+            required
             class="bg-[#431E14] text-[#F3E7D3] px-6 py-3 rounded-full outline-none placeholder:text-[#F3E7D3]/40 border border-[#431E14] focus:border-[#BD652E] transition-colors w-full max-w-[250px]"
           />
-          <button 
-            type="submit" 
-            class="bg-[#BD652E] hover:bg-[#A35222] text-[#F3E7D3] px-6 py-3 rounded-full text-xs font-bold tracking-widest uppercase transition-colors shrink-0"
+          <button
+            type="submit"
+            :disabled="loading"
+            class="bg-[#BD652E] hover:bg-[#A35222] text-[#F3E7D3] px-6 py-3 rounded-full text-xs font-bold tracking-widest uppercase transition-colors shrink-0 disabled:opacity-50"
           >
-            S'abonner
+            {{ loading ? '...' : "S'abonner" }}
           </button>
         </form>
+        <p v-if="success" class="text-validation text-xs mt-2">Inscription réussie !</p>
+        <p v-if="error" class="text-alerte text-xs mt-2">{{ error }}</p>
       </div>
 
       <!-- Right Section -->
@@ -44,15 +54,18 @@
 
     <!-- Bottom Section -->
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center border-t border-[#F3E7D3]/10 pt-8 gap-6">
-      <p class="text-[10px] tracking-widest uppercase opacity-50 font-semibold text-center md:text-left">
-        TEAM MMI — © 2025 CROOAK — TOUS DROITS RÉSERVÉS. NE PAS AVALER LES PETITES PIÈCES.
-      </p>
-      
-      <div class="flex gap-8 text-[10px] tracking-widest uppercase opacity-50 font-semibold">
-        <NuxtLink to="#" class="hover:opacity-100 transition-opacity">Mentions Légales</NuxtLink>
-        <NuxtLink to="#" class="hover:opacity-100 transition-opacity">Confidentialité</NuxtLink>
-        <NuxtLink to="#" class="hover:opacity-100 transition-opacity">Contact</NuxtLink>
-      </div>
+        <div class="flex flex-col md:flex-row items-center justify-between text-[10px] font-bold text-white/50 tracking-widest uppercase gap-4 md:gap-8">
+          <div class="flex items-center gap-2">
+            <span class="opacity-50">TEAM MMI</span>
+            <span>—</span>
+            <span>{{ $t('footer.rights') }}</span>
+          </div>
+          <div class="flex items-center gap-6">
+            <NuxtLink :to="localePath('/mentions')" class="hover:text-white transition-colors">{{ $t('footer.legal') }}</NuxtLink>
+            <NuxtLink :to="localePath('/confidentialite')" class="hover:text-white transition-colors">{{ $t('footer.privacy') }}</NuxtLink>
+            <NuxtLink :to="localePath('/contact')" class="hover:text-white transition-colors">{{ $t('footer.contact') }}</NuxtLink>
+          </div>
+        </div>
     </div>
   </footer>
 </template>
