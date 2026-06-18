@@ -9,20 +9,29 @@ export function useApi() {
     return h
   }
 
-  async function get<T>(path: string): Promise<T> {
-    return $fetch<T>(`${apiBase}${path}`, { headers: headers() })
+  // $fetch est typé avec les routes Nitro internes ; sur une URL dynamique vers
+  // une API externe (crooak_api), cela déclenche une récursion de types coûteuse
+  // (TS2321). On le caste vers une signature simple — comportement identique à
+  // l'exécution.
+  const request = $fetch as unknown as <T>(
+    url: string,
+    options?: Record<string, unknown>,
+  ) => Promise<T>
+
+  function get<T>(path: string): Promise<T> {
+    return request<T>(`${apiBase}${path}`, { headers: headers() })
   }
 
-  async function post<T>(path: string, body: unknown): Promise<T> {
-    return $fetch<T>(`${apiBase}${path}`, { method: 'POST', headers: headers(), body })
+  function post<T>(path: string, body?: unknown): Promise<T> {
+    return request<T>(`${apiBase}${path}`, { method: 'POST', headers: headers(), body })
   }
 
-  async function put<T>(path: string, body: unknown): Promise<T> {
-    return $fetch<T>(`${apiBase}${path}`, { method: 'PUT', headers: headers(), body })
+  function put<T>(path: string, body?: unknown): Promise<T> {
+    return request<T>(`${apiBase}${path}`, { method: 'PUT', headers: headers(), body })
   }
 
-  async function del<T>(path: string): Promise<T> {
-    return $fetch<T>(`${apiBase}${path}`, { method: 'DELETE', headers: headers() })
+  function del<T>(path: string): Promise<T> {
+    return request<T>(`${apiBase}${path}`, { method: 'DELETE', headers: headers() })
   }
 
   async function login(email: string, password: string): Promise<string> {
