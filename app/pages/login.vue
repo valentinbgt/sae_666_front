@@ -20,7 +20,7 @@ async function handleLogin() {
       method: 'POST',
       body: { email: loginEmail.value, password: loginPassword.value },
     })
-    setToken(data.token)
+    await setToken(data.token)
     await navigateTo('/')
   } catch {
     loginError.value = 'Email ou mot de passe incorrect.'
@@ -53,7 +53,7 @@ async function handleRegister() {
       method: 'POST',
       body: { email: regEmail.value, password: regPassword.value },
     })
-    setToken(data.token)
+    await setToken(data.token)
     await navigateTo('/')
   } catch (e: any) {
     const d = e?.data

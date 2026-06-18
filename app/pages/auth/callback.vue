@@ -2,13 +2,13 @@
 const route = useRoute()
 const { setToken } = useAuth()
 
-onMounted(() => {
+onMounted(async () => {
   const token = route.query.token as string | undefined
   if (token) {
-    setToken(token)
-    navigateTo('/')
+    await setToken(token)
+    await navigateTo('/', { replace: true })
   } else {
-    navigateTo('/login')
+    await navigateTo('/login', { replace: true })
   }
 })
 </script>
