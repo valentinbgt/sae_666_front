@@ -1,8 +1,14 @@
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+
+  app: {
+    head: {
+      link: [{ rel: "icon", type: "image/png", href: "/images/favicon.png" }],
+    },
+  },
 
   // The app is deployed as a 100% static build (`nuxt generate`) served by
   // nginx, and authentication is entirely client-side (JWT in a cookie).
@@ -11,7 +17,7 @@ export default defineNuxtConfig({
   // A pure client-side SPA runs the middleware at runtime with the real cookie.
   ssr: false,
 
-  css: ['~/assets/css/main.css'],
+  css: ["~/assets/css/main.css"],
 
   vite: {
     plugins: [tailwindcss()],
@@ -23,7 +29,10 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE ?? 'https://localhost/api/crooak_api',
+      apiBase:
+        process.env.NUXT_PUBLIC_API_BASE ?? "https://localhost/api/crooak_api",
     },
   },
-})
+
+  modules: ["@nuxt/icon"],
+});
