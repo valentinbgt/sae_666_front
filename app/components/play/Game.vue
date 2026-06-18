@@ -55,7 +55,6 @@ async function onWheelClick() {
 type OverlaySegment = { text: string; color?: string };
 
 const overlayMessage = ref<OverlaySegment[] | null>(null);
-const overlayColor = ref<string | undefined>(undefined);
 
 function cases(n: number | undefined) {
   return n === 1 ? "1 case" : `${n ?? "?"} cases`;
@@ -63,13 +62,11 @@ function cases(n: number | undefined) {
 
 function showOverlay(segments: OverlaySegment[], dotColor?: string) {
   overlayMessage.value = segments;
-  overlayColor.value = dotColor;
 }
 
 function dismissOverlay() {
   const wasDone = phase.value === "done";
   overlayMessage.value = null;
-  overlayColor.value = undefined;
   if (wasDone) handleEndTurn();
 }
 
@@ -80,9 +77,15 @@ function onSettled(segment: WheelSegment) {
   if (prevMode === "select") {
     showOverlay(
       [
-        { text: currentPlayer.value?.name ?? "?", color: currentPlayer.value?.color },
+        {
+          text: currentPlayer.value?.name ?? "?",
+          color: currentPlayer.value?.color,
+        },
         { text: " échange avec " },
-        { text: selectedPlayer.value?.name ?? "?", color: selectedPlayer.value?.color },
+        {
+          text: selectedPlayer.value?.name ?? "?",
+          color: selectedPlayer.value?.color,
+        },
       ],
       selectedPlayer.value?.color,
     );
@@ -94,7 +97,10 @@ function onSettled(segment: WheelSegment) {
   } else {
     showOverlay(
       [
-        { text: currentPlayer.value?.name ?? "?", color: currentPlayer.value?.color },
+        {
+          text: currentPlayer.value?.name ?? "?",
+          color: currentPlayer.value?.color,
+        },
         { text: `, avance de ${cases(result.value?.value)}` },
       ],
       currentPlayer.value?.color,
@@ -106,7 +112,10 @@ function handleEndTurn() {
   endTurn();
   showOverlay([
     { text: "Au tour de " },
-    { text: currentPlayer.value?.name ?? "?", color: currentPlayer.value?.color },
+    {
+      text: currentPlayer.value?.name ?? "?",
+      color: currentPlayer.value?.color,
+    },
   ]);
 }
 
@@ -128,7 +137,12 @@ const hint = computed(() => {
 </script>
 
 <template>
-  <div class="relative flex min-h-dvh flex-col">
+  <div
+    class="relative flex min-h-dvh flex-col bg-cover bg-center transition-[background-image]"
+    :style="
+      gameStarted ? { backgroundImage: 'url(/images/assets/wheel-bg.png)' } : {}
+    "
+  >
     <!-- En-tête -->
     <header class="flex items-center justify-between px-6 pt-5">
       <span class="w-20" />
@@ -207,7 +221,6 @@ const hint = computed(() => {
       <PlayTransitionOverlay
         v-if="overlayMessage"
         :message="overlayMessage"
-        :color="overlayColor"
         @dismiss="dismissOverlay"
       />
     </Transition>
