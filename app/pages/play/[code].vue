@@ -103,6 +103,7 @@ function quit() {
       @add="handleAdd"
       @remove="handleRemove"
       @start="handleStart"
+      @quit="quit"
     />
 
     <PlayGame

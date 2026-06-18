@@ -80,5 +80,12 @@ async function newGame() {
     </div>
 
     <p v-if="error" class="text-sm text-alerte">{{ error }}</p>
+
+    <NuxtLink
+      to="/"
+      class="text-xs font-semibold uppercase tracking-widest text-primaire/50 transition hover:text-primaire"
+    >
+      Retour au site
+    </NuxtLink>
   </div>
 </template>

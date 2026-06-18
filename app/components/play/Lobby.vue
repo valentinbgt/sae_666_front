@@ -10,6 +10,7 @@ const emit = defineEmits<{
   add: [name: string]
   remove: [playerId: number | string]
   start: []
+  quit: []
 }>()
 
 const joinUrl = ref('')
@@ -93,6 +94,15 @@ const canStart = computed(() => props.game.players.length >= 2)
       <p v-if="!canStart" class="text-center text-xs text-primaire/50">
         Il faut au moins 2 joueurs pour commencer.
       </p>
+
+      <button
+        type="button"
+        :disabled="busy"
+        class="mt-1 inline-flex items-center justify-center text-xs font-semibold uppercase tracking-widest text-primaire/50 transition hover:text-primaire disabled:opacity-40"
+        @click="emit('quit')"
+      >
+        Quitter
+      </button>
     </section>
   </div>
 </template>
