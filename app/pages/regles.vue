@@ -29,15 +29,15 @@
       <!-- Section Video Tutorial -->
       <section class="mb-40 max-w-4xl mx-auto animate-fade-up animate-delay-200">
         <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center" style="font-family: Georgia, serif;">Tutoriel Vidéo</h2>
-        <div class="rounded-[32px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/10 bg-black">
-          <video 
-            class="w-full aspect-video object-cover" 
-            controls 
-            preload="metadata"
-          >
-            <source src="/video/video_regle.mp4" type="video/mp4" />
-            Votre navigateur ne supporte pas la lecture de vidéos.
-          </video>
+        <div class="rounded-[32px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/10 bg-black relative aspect-video">
+          <iframe 
+            class="absolute top-0 left-0 w-full h-full" 
+            src="https://www.youtube.com/embed/PhijKyzApcA" 
+            title="Tutoriel Vidéo Crooak" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+          ></iframe>
         </div>
       </section>
 
