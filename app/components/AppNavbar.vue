@@ -7,9 +7,8 @@
 
     <!-- Liens nav -->
     <ul class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest uppercase">
-      <li><NuxtLink to="/le-jeu" class="navlink">Le jeu</NuxtLink></li>
+      <li><NuxtLink to="/" class="navlink">Le jeu</NuxtLink></li>
       <li><NuxtLink to="/regles" class="navlink">Règles</NuxtLink></li>
-      <li><NuxtLink to="/qui-sommes-nous" class="navlink">Qui sommes-nous ?</NuxtLink></li>
       <li><NuxtLink to="/actualites" class="navlink">Actualités</NuxtLink></li>
     </ul>
 

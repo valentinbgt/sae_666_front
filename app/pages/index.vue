@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen" style="background: linear-gradient(to bottom right, #431E14 0%, #431E14 40%, #BD652E 100%);">
-    <AppNavbar />
 
     <!-- Hero -->
     <section
@@ -119,7 +118,7 @@
     </section>
 
     <!-- Section 2 : Les Piliers -->
-    <section class="relative w-full py-24 px-8 overflow-hidden">
+    <section class="relative w-full pt-24 pb-12 px-8 overflow-visible">
       <div class="max-w-7xl mx-auto relative z-10">
         
         <!-- En-tête -->
@@ -206,11 +205,8 @@
       </div>
     </section>
 
-    <!-- TRANSITION GRADIENT -->
-    <div class="w-full h-24 relative z-0 pointer-events-none" style="background: linear-gradient(to bottom, rgba(46, 21, 13, 0) 0%, #2E150D 100%); margin-bottom: -1px;"></div>
-
     <!-- SECTION 3 : COMMENT JOUER -->
-    <section class="w-full bg-[#2E150D] pt-4 pb-24 relative z-10 flex flex-col items-center">
+    <section class="w-full pt-24 pb-24 relative z-10 flex flex-col items-center" style="background: linear-gradient(to bottom, rgba(46, 21, 13, 0) 0%, #2E150D 250px, #2E150D 100%);">
       <div class="max-w-5xl w-full px-6 flex flex-col items-center">
         <!-- Header -->
         <div class="flex flex-col items-center text-center mb-24">
@@ -245,7 +241,16 @@
           <div class="flex flex-col border-l-2 border-[#BD652E] pl-8 relative h-full">
             <div class="flex justify-between items-start mb-6">
               <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">02</span>
-              <img src="/images/assets/carte_terrin.webp" alt="Carte Terrain" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300 rounded-xl" />
+              
+              <!-- Carte stylisée -->
+              <div class="relative w-16 h-24 -mt-2 bg-[#BD652E] rounded-xl p-[1.5px] shadow-[0_15px_30px_rgba(0,0,0,0.5)] transform rotate-6 hover:-translate-y-4 hover:rotate-12 hover:scale-110 transition-all duration-300 z-10 border border-white/40 group cursor-pointer">
+                <div class="w-full h-full rounded-[10px] overflow-hidden relative">
+                  <img src="/images/assets/carte_terrin.webp" alt="Carte Terrain" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <!-- Reflet vitré (glassmorphism) sur la carte -->
+                  <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 pointer-events-none"></div>
+                </div>
+              </div>
+
             </div>
             <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Construire la carte</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
@@ -280,6 +285,104 @@
         </div>
       </div>
     </section>
+
+    <!-- WRAPPER SECTIONS 4 & 5 (Image de fond unifiée) -->
+    <div class="relative w-full overflow-hidden">
+      <!-- Background Image (chemin_4_5.webp) -->
+      <div class="absolute inset-0 z-0 pointer-events-none flex justify-center items-start opacity-25">
+        <img src="/images/assets/chemin_4_5.webp" alt="" class="w-full h-full object-cover object-top" />
+      </div>
+
+      <!-- SECTION 4 : LA VISION -->
+      <section class="relative z-10 w-full pt-16 pb-32 flex flex-col items-center" style="background: linear-gradient(to bottom, #2E150D 0%, rgba(46, 21, 13, 0) 400px);">
+
+      <!-- Content -->
+      <div class="max-w-5xl w-full px-6 relative z-10 flex flex-col items-center text-center">
+        <!-- Header -->
+        <span class="text-[#E7D6B9] text-xs font-bold tracking-[0.2em] uppercase mb-6 mt-16">
+          LA VISION
+        </span>
+        <h2 class="text-[#F3E7D3] text-5xl md:text-6xl font-bold leading-tight mb-12" style="font-family: Georgia, serif;">
+          Un univers qui<br />grandit avec vous.
+        </h2>
+
+        <!-- Decorations (Champignon et Empreinte) -->
+        <img src="/images/assets/champignon.png" alt="Champignon" class="absolute left-0 md:left-8 top-[280px] w-16 md:w-20 opacity-40 -rotate-12 pointer-events-none hidden md:block" />
+        <img src="/images/assets/main_grenouille.png" alt="Empreinte" class="absolute right-0 md:right-16 top-32 w-16 md:w-20 opacity-30 rotate-12 pointer-events-none hidden md:block" />
+
+        <!-- Paragraph -->
+        <p class="text-[#F3E7D3]/80 text-lg md:text-xl leading-relaxed max-w-3xl mb-24">
+          Crooak n'est pas qu'un simple passe-temps d'un soir. C'est un terrain de jeu modulaire conçu pour devenir une référence dans l'univers des jeux de pose de tuiles. Une expérience qui mêle intimement construction et interaction directe, conçue pour durer éternellement dans vos ludothèques.
+        </p>
+
+        <!-- 3 Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+          <!-- Card 1 -->
+          <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform hover:-translate-y-2 border border-white/5">
+            <Icon name="ph:stack" class="w-8 h-8 text-[#E7D6B9] mb-6" />
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Pérennité</h3>
+            <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
+              Des extensions à venir et des guides de grenouilles. Le marais s'étend.
+            </p>
+          </div>
+          <!-- Card 2 -->
+          <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform hover:-translate-y-2 border border-white/5">
+            <Icon name="ph:map-pin" class="w-8 h-8 text-[#E7D6B9] mb-6" />
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Innovation</h3>
+            <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
+              Un système où la topographie évolue à chaque pose. Un champ de bataille vivant.
+            </p>
+          </div>
+          <!-- Card 3 -->
+          <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform hover:-translate-y-2 border border-white/5">
+            <Icon name="ph:user" class="w-8 h-8 text-[#E7D6B9] mb-6" />
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">Rassemblement</h3>
+            <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
+              Un design intergénérationnel. Des règles fluides pour tous les joueurs.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5 : CALL TO ACTION -->
+    <section class="relative z-10 w-full py-40 flex flex-col items-center">
+
+      <!-- Content -->
+      <div class="max-w-4xl w-full px-6 relative z-10 flex flex-col items-center text-center">
+        
+        <!-- Logo Couronne (Favicon) -->
+        <img src="/favicon.png" alt="Logo Crooak" class="w-24 h-24 md:w-28 md:h-28 object-contain mb-8 drop-shadow-md" />
+
+        <!-- Titre -->
+        <h2 class="text-[#F3E7D3] text-5xl md:text-7xl font-bold leading-tight mb-8" style="font-family: Georgia, serif;">
+          Prêt à poser la<br />
+          <span class="italic">première tuile ?</span>
+        </h2>
+
+        <!-- Paragraphe -->
+        <p class="text-[#F3E7D3]/90 text-lg md:text-xl leading-relaxed max-w-2xl mb-12">
+          Rejoins la communauté Crooak dès maintenant. Précommande ton édition fondateurs et gagne des cartes "objet" exclusives.
+        </p>
+
+        <!-- Boutons -->
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <!-- Bouton Précommander -->
+          <NuxtLink to="/precommander" class="bg-[#2E150D] text-[#F3E7D3] px-8 py-4 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-[#1A0A06] transition-colors shadow-lg">
+            Précommander (Édition Base)
+          </NuxtLink>
+
+          <!-- Bouton Découvrir -->
+          <NuxtLink to="/precommander" class="bg-transparent border border-[#F3E7D3] text-[#F3E7D3] px-8 py-4 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-[#F3E7D3] hover:text-[#2E150D] transition-colors shadow-lg">
+            Découvrir l'édition Deluxe
+          </NuxtLink>
+        </div>
+
+      </div>
+    </section>
+
+    </div>
 
   </div>
 </template>

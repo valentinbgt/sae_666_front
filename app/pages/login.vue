@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({ title: 'CROOAK – Connexion' })
+definePageMeta({ title: 'CROOAK – Connexion', layout: false })
 
 const { public: { apiBase } } = useRuntimeConfig()
 const { setToken } = useAuth()
