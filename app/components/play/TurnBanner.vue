@@ -23,7 +23,7 @@ defineProps<{
           class="h-4 w-4 rounded-full ring-2 ring-primaire/40"
           :style="{ backgroundColor: player.color }"
         />
-        À toi, {{ player.name }} !
+        Au tour de {{ player.name }}.
       </span>
     </p>
   </div>
