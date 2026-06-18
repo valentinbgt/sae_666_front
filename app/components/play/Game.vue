@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import type { Game, WheelSegment } from '~/types/play'
+import type { Game, WheelSegment } from "~/types/play";
 
-const props = defineProps<{ game: Game }>()
-const emit = defineEmits<{ quit: [] }>()
+const props = defineProps<{ game: Game }>();
+const emit = defineEmits<{ quit: [] }>();
 
 /** Ordonne les joueurs selon turnOrder (sinon ordre des sièges). */
-function orderedPlayers(): Game['players'] {
-  const order = props.game.turnOrder
-  if (!order?.length) return props.game.players
-  const byId = new Map(props.game.players.map((p) => [String(p.id), p]))
+function orderedPlayers(): Game["players"] {
+  const order = props.game.turnOrder;
+  if (!order?.length) return props.game.players;
+  const byId = new Map(props.game.players.map((p) => [String(p.id), p]));
   const ordered = order
     .map((id) => byId.get(String(id)))
-    .filter((p): p is Game['players'][number] => !!p)
-  const seen = new Set(ordered.map((p) => String(p.id)))
-  return [...ordered, ...props.game.players.filter((p) => !seen.has(String(p.id)))]
+    .filter((p): p is Game["players"][number] => !!p);
+  const seen = new Set(ordered.map((p) => String(p.id)));
+  return [
+    ...ordered,
+    ...props.game.players.filter((p) => !seen.has(String(p.id))),
+  ];
 }
 
 const {
@@ -32,79 +35,87 @@ const {
   startSpin,
   settle,
   endTurn,
-} = useGameSession(orderedPlayers())
+} = useGameSession(orderedPlayers());
 
-const gameStarted = ref(false)
+const gameStarted = ref(false);
 
 function pickFirstPlayer(index: number) {
-  currentIndex.value = index
-  gameStarted.value = true
+  currentIndex.value = index;
+  gameStarted.value = true;
 }
 
-const wheel = ref<{ spin: () => Promise<void> } | null>(null)
+const wheel = ref<{ spin: () => Promise<void> } | null>(null);
 
 async function onWheelClick() {
-  if (phase.value !== 'ready') return
-  startSpin()
-  await wheel.value?.spin()
+  if (phase.value !== "ready") return;
+  startSpin();
+  await wheel.value?.spin();
 }
 
-const overlayMessage = ref<string | null>(null)
-const overlayColor = ref<string | undefined>(undefined)
+const overlayMessage = ref<string | null>(null);
+const overlayColor = ref<string | undefined>(undefined);
 
 function cases(n: number | undefined) {
-  return n === 1 ? '1 case' : `${n ?? '?'} cases`
+  return n === 1 ? "1 case" : `${n ?? "?"} cases`;
 }
 
 function showOverlay(message: string, color?: string) {
-  overlayMessage.value = message
-  overlayColor.value = color
+  overlayMessage.value = message;
+  overlayColor.value = color;
 }
 
 function dismissOverlay() {
-  const wasDone = phase.value === 'done'
-  overlayMessage.value = null
-  overlayColor.value = undefined
-  if (wasDone) handleEndTurn()
+  const wasDone = phase.value === "done";
+  overlayMessage.value = null;
+  overlayColor.value = undefined;
+  if (wasDone) handleEndTurn();
 }
 
 function onSettled(segment: WheelSegment) {
-  const prevMode = mode.value
-  settle(segment)
+  const prevMode = mode.value;
+  settle(segment);
 
-  if (prevMode === 'select') {
+  if (prevMode === "select") {
     showOverlay(
       `${currentPlayer.value?.name} échange avec ${selectedPlayer.value?.name}`,
       selectedPlayer.value?.color,
-    )
-  } else if (prevMode === 'terrain') {
-    showOverlay(`Terrain : ${cases(segment.value)}`, currentPlayer.value?.color)
+    );
+  } else if (prevMode === "terrain") {
+    showOverlay(
+      `Terrain : ${cases(segment.value)}`,
+      currentPlayer.value?.color,
+    );
   } else {
     showOverlay(
-      `${currentPlayer.value?.name}, avance de ${cases(result.value?.value)} !`,
+      `${currentPlayer.value?.name}, avance de ${cases(result.value?.value)}`,
       currentPlayer.value?.color,
-    )
+    );
   }
 }
 
 function handleEndTurn() {
-  endTurn()
-  showOverlay(`Au tour de ${currentPlayer.value?.name} !`, currentPlayer.value?.color)
+  endTurn();
+  showOverlay(
+    `Au tour de ${currentPlayer.value?.name}`,
+    currentPlayer.value?.color,
+  );
 }
 
 const hint = computed(() => {
-  if (phase.value === 'spinning') return 'La roue tourne…'
-  if (phase.value === 'done') return `Avance de ${result.value?.value ?? ''} case(s)`
+  if (phase.value === "spinning") return "";
+  if (phase.value === "done") return "";
   // phase 'ready' : on attend un clic sur la roue.
-  if (mode.value === 'select') return 'Clique la roue pour désigner un joueur'
-  if (mode.value === 'terrain') return 'Clique la roue (Terrain)'
+  if (mode.value === "select") return "Lance la roue pour désigner un joueur";
+  if (mode.value === "terrain")
+    return "Lance la roue pour définir le nombre de terrains à déplacer";
   if (selectedPlayer.value)
-    return `Échange avec ${selectedPlayer.value.name} — clique la roue pour avancer`
+    return `Échange de place avec ${selectedPlayer.value.name} et lance la roue pour avancer`;
   if (terrainResult.value)
-    return `Terrain : ${terrainResult.value.value} — clique la roue pour avancer`
-  if (mode.value === 'boost') return 'Clique la roue pour avancer (Boost)'
-  return 'Clique la roue pour avancer'
-})
+    return `Déplace ${terrainResult.value.value} tuile${(terrainResult.value?.value ?? 0) > 1 ? "s" : ""} et lance la roue pour avancer`;
+  if (mode.value === "boost")
+    return "La roue est boostée, tu peux la lancer pour avancer";
+  return "Lance la roue pour avancer";
+});
 </script>
 
 <template>
@@ -127,7 +138,9 @@ const hint = computed(() => {
       v-if="!gameStarted"
       class="flex flex-1 flex-col items-center justify-center gap-8 px-6 py-6"
     >
-      <p class="text-2xl text-primaire" style="font-family: Georgia, serif">Qui commence ?</p>
+      <p class="text-2xl text-primaire" style="font-family: Georgia, serif">
+        Qui commence ?
+      </p>
       <div class="flex flex-wrap justify-center gap-4">
         <button
           v-for="(p, i) in players"
@@ -177,7 +190,6 @@ const hint = computed(() => {
         </button>
 
         <p class="min-h-6 text-center text-sm text-primaire/80">{{ hint }}</p>
-
       </div>
     </main>
 
@@ -192,7 +204,10 @@ const hint = computed(() => {
     </Transition>
 
     <!-- Pied : tour courant + ordre des joueurs -->
-    <footer v-if="gameStarted" class="flex flex-col items-start gap-4 px-6 pb-6 sm:flex-row sm:items-end sm:justify-between">
+    <footer
+      v-if="gameStarted"
+      class="flex flex-col items-start gap-4 px-6 pb-6 sm:flex-row sm:items-end sm:justify-between"
+    >
       <PlayTurnBanner :player="currentPlayer" />
       <div class="flex flex-wrap gap-2">
         <PlayPlayerChip
@@ -208,10 +223,14 @@ const hint = computed(() => {
 
 <style scoped>
 .overlay-enter-active {
-  transition: opacity 220ms ease, transform 220ms ease;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
 }
 .overlay-leave-active {
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 .overlay-enter-from,
 .overlay-leave-to {
