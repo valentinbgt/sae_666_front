@@ -49,9 +49,10 @@ async function spin(): Promise<void> {
   const segAngle = 360 / n
   const target = Math.floor(Math.random() * n)
   const targetCenter = target * segAngle + segAngle / 2
-  // Pour amener le centre du segment cible sous le pointeur (haut), il faut
-  // une rotation R telle que R ≡ -targetCenter (mod 360). On y ajoute 5 tours.
-  const desiredMod = (((-targetCenter) % 360) + 360) % 360
+  // Pour amener le centre du segment cible sous le pointeur (gauche, à 270°),
+  // il faut une rotation R telle que R ≡ 270 - targetCenter (mod 360).
+  // On y ajoute 5 tours.
+  const desiredMod = (((270 - targetCenter) % 360) + 360) % 360
   const currentMod = ((rotation.value % 360) + 360) % 360
   let delta = desiredMod - currentMod
   if (delta < 0) delta += 360
@@ -97,9 +98,9 @@ defineExpose({ spin, spinning })
       <!-- Bordure fixe -->
       <circle :cx="C" :cy="C" :r="R" fill="none" stroke="#F7E7C6" stroke-width="2" />
 
-      <!-- Pointeur fixe en haut -->
+      <!-- Pointeur fixe au milieu à gauche -->
       <polygon
-        points="100,21 87,1 113,1"
+        points="21,100 1,87 1,113"
         fill="#F7E7C6"
         stroke="#3b241a"
         stroke-width="1.2"

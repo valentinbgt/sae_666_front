@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { GamePlayer } from '~/types/play'
+import type { GamePlayer } from "~/types/play";
 
 defineProps<{
-  player: GamePlayer | null
-}>()
+  player: GamePlayer | null;
+}>();
 </script>
 
 <template>
@@ -23,7 +23,7 @@ defineProps<{
           class="h-4 w-4 rounded-full ring-2 ring-primaire/40"
           :style="{ backgroundColor: player.color }"
         />
-        {{ player.name }}, à toi !
+        À toi, {{ player.name }} !
       </span>
     </p>
   </div>
