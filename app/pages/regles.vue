@@ -26,7 +26,7 @@
         <div class="rounded-[32px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/10 bg-black relative aspect-video">
           <iframe 
             class="absolute top-0 left-0 w-full h-full" 
-            src="https://www.youtube.com/embed/PhijKyzApcA" 
+            src="https://www.youtube.com/embed/J5n1st3V3nE" 
             title="Tutoriel Vidéo Crooak" 
             frameborder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 

@@ -3,8 +3,8 @@
 
     <!-- HEADER HERO -->
     <section class="bg-[#2E150D] rounded-b-[40px] md:rounded-b-[80px] pt-40 pb-24 px-6 text-center shadow-xl relative z-10">
-      <h1 class="text-5xl md:text-6xl text-primaire font-bold mb-6" style="font-family: Georgia, serif;">{{ $t('news.title') }}</h1>
-      <p class="text-primaire/80 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+      <h1 class="text-5xl md:text-6xl text-primaire font-bold mb-6 animate-fade-up" style="font-family: Georgia, serif;">{{ $t('news.title') }}</h1>
+      <p class="text-primaire/80 max-w-2xl mx-auto text-sm md:text-base leading-relaxed animate-fade-up delay-100">
         {{ $t('news.subtitle') }}
       </p>
     </section>
@@ -69,27 +69,35 @@
       </template>
 
       <!-- Newsletter Box -->
-      <div class="bg-[#2E150D] rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
-        <div class="flex-1">
-          <Icon name="ph:envelope-simple-fill" class="w-8 h-8 text-primaire mb-4" />
-          <h3 class="text-primaire text-2xl font-bold mb-2" style="font-family: Georgia, serif;">{{ $t('news.nl_title') }}</h3>
+      <div class="bg-[#2E150D] rounded-2xl p-8 flex flex-col md:flex-row items-start justify-between gap-8 shadow-xl">
+        <div class="flex-1 mt-1.5">
+          <div class="flex items-center gap-3 mb-2">
+            <Icon name="ph:envelope-simple-fill" class="w-8 h-8 text-primaire" />
+            <h3 class="text-primaire text-2xl font-bold" style="font-family: Georgia, serif;">{{ $t('news.nl_title') }}</h3>
+          </div>
           <p class="text-primaire/70 text-sm">{{ $t('news.nl_sub') }}</p>
         </div>
-        <form class="w-full md:w-auto flex flex-col sm:flex-row gap-3" @submit.prevent="subscribe">
-          <input
-            v-model="email"
-            type="email"
-            :placeholder="$t('news.nl_placeholder')"
-            required
-            class="bg-[#431E14] text-primaire px-5 py-3 rounded-xl outline-none placeholder:text-primaire/40 border border-[#431E14] focus:border-cta transition-colors w-full sm:w-64"
-          />
-          <button
-            type="submit"
-            :disabled="loading"
-            class="bg-cta text-white font-bold text-sm px-8 py-3 rounded-xl uppercase tracking-widest hover:bg-[#c9733d] transition-colors shadow-lg disabled:opacity-50"
-          >
-            {{ loading ? $t('news.nl_loading') : $t('news.nl_btn') }}
-          </button>
+        <form class="w-full md:w-auto flex flex-col gap-3" @submit.prevent="subscribe">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input
+              v-model="email"
+              type="email"
+              :placeholder="$t('news.nl_placeholder')"
+              required
+              class="bg-[#431E14] text-primaire px-5 py-3 rounded-xl outline-none placeholder:text-primaire/40 border border-[#431E14] focus:border-cta transition-colors w-full sm:w-64"
+            />
+            <button
+              type="submit"
+              :disabled="loading"
+              class="bg-cta text-white font-bold text-sm px-8 py-3 rounded-xl uppercase tracking-widest hover:bg-[#c9733d] transition-colors shadow-lg disabled:opacity-50"
+            >
+              {{ loading ? $t('news.nl_loading') : $t('news.nl_btn') }}
+            </button>
+          </div>
+          <div class="flex items-start gap-3 text-sm text-primaire/80 mt-3 max-w-md">
+            <input type="checkbox" id="rgpd-news" required class="mt-1 w-4 h-4 accent-cta cursor-pointer shrink-0" />
+            <label for="rgpd-news" class="leading-snug cursor-pointer">{{ $t('news.nl_rgpd') }}</label>
+          </div>
         </form>
         <p v-if="success" class="text-validation text-xs mt-2 w-full text-center">{{ $t('news.nl_success') }}</p>
         <p v-if="error" class="text-alerte text-xs mt-2 w-full text-center">{{ error }}</p>
