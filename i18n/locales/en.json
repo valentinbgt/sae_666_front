@@ -2,7 +2,7 @@
   "nav": {
     "game": "The Game",
     "rules": "Rules",
-    "news": "News",
+    "news": "News and Events",
     "preorder": "Pre-order",
     "app": "App"
   },
@@ -13,8 +13,8 @@
     "contact": "CONTACT"
   },
   "news": {
-    "title": "News",
-    "subtitle": "Dive into the murky but thrilling waters of Crooak. Discover the latest tactical updates, upcoming expansions, and join the community at our official tournaments.",
+    "title": "News and Events",
+    "subtitle": "Dive into the murky but exciting waters of Crooak. Discover the latest tactical updates, upcoming expansions and join the community at our official tournaments.",
     "latest_title": "Latest News",
     "latest_sub": "Stay tuned for the secrets of the swamp.",
     "featured_badge": "FEATURED",

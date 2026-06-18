@@ -2,7 +2,7 @@
   "nav": {
     "game": "Le jeu",
     "rules": "Règles",
-    "news": "Actualités",
+    "news": "Actualités et événements",
     "preorder": "Précommander",
     "app": "Appli"
   },
@@ -13,7 +13,7 @@
     "contact": "CONTACT"
   },
   "news": {
-    "title": "Actualités",
+    "title": "Actualités et événements",
     "subtitle": "Plongez dans les eaux troubles mais passionnantes de Crooak. Découvrez les dernières mises à jour tactiques, les extensions à venir et rejoignez la communauté lors de nos tournois officiels.",
     "latest_title": "Dernières Nouvelles",
     "latest_sub": "Restez à l'affût des secrets du marécage.",

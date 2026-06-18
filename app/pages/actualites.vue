@@ -115,14 +115,15 @@ interface Content {
   createdAt: string
 }
 
-const { data, pending, error: fetchError } = await useFetch<{ 'hydra:member': Content[] }>(
+const { data, pending, error: fetchError } = useFetch<{ member?: Content[], 'hydra:member'?: Content[] }>(
   `${apiBase}/contents`,
   {
     query: { type: 'article', 'order[createdAt]': 'desc' },
+    server: false,
   }
 )
 
-const articles = computed(() => data.value?.['hydra:member'] ?? [])
+const articles = computed(() => data.value?.['member'] ?? data.value?.['hydra:member'] ?? [])
 
 function formatDate(dateStr: string | null | undefined): string {
   if (!dateStr) return ''
