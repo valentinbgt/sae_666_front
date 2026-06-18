@@ -27,6 +27,15 @@ function submitAdd() {
 }
 
 const canStart = computed(() => props.game.players.length >= 2)
+
+const copyFeedback = ref(false)
+async function copyInviteLink() {
+  await navigator.clipboard.writeText(joinUrl.value)
+  copyFeedback.value = true
+  setTimeout(() => {
+    copyFeedback.value = false
+  }, 2000)
+}
 </script>
 
 <template>
@@ -42,6 +51,14 @@ const canStart = computed(() => props.game.players.length >= 2)
         <p class="text-xs uppercase tracking-[0.3em] text-primaire/50">Code</p>
         <p class="text-2xl font-bold tracking-[0.4em] text-cta">{{ game.code }}</p>
       </div>
+      <button
+        type="button"
+        :disabled="busy"
+        class="rounded-lg bg-secondaire/70 px-4 py-2 text-sm font-semibold uppercase tracking-widest text-primaire transition hover:bg-secondaire disabled:opacity-40"
+        @click="copyInviteLink"
+      >
+        {{ copyFeedback ? '✓ Copié !' : 'Copier le lien' }}
+      </button>
     </section>
 
     <!-- Joueurs -->
