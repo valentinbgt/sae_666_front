@@ -144,12 +144,16 @@ const hint = computed(() => {
     "
   >
     <!-- En-tête -->
-    <header class="flex items-center justify-between px-6 pt-5">
-      <span class="w-20" />
-      <img src="/images/logo_crooak.png" alt="CROOAK" class="h-10 w-auto" />
+    <header class="flex items-center justify-between px-4 pt-4 lg:px-6 lg:pt-5">
+      <span class="w-16 sm:w-20" />
+      <img
+        src="/images/logo_crooak.png"
+        alt="CROOAK"
+        class="absolute left-5 top-4 h-12 w-auto lg:h-10"
+      />
       <button
         type="button"
-        class="w-20 text-right text-xs font-semibold uppercase tracking-widest text-primaire/50 transition hover:text-primaire"
+        class="absolute right-8 top-7 w-16 text-right text-xs font-semibold uppercase tracking-widest text-primaire/50 transition hover:text-primaire sm:w-20"
         @click="emit('quit')"
       >
         Quitter
@@ -159,12 +163,15 @@ const hint = computed(() => {
     <!-- Sélection du premier joueur -->
     <main
       v-if="!gameStarted"
-      class="flex flex-1 flex-col items-center justify-center gap-8 px-6 py-6"
+      class="flex flex-1 flex-col items-center justify-center gap-6 px-4 py-6 sm:gap-8 sm:px-6"
     >
-      <p class="text-2xl text-primaire" style="font-family: Georgia, serif">
+      <p
+        class="text-xl text-primaire sm:text-2xl"
+        style="font-family: Georgia, serif"
+      >
         Qui commence ?
       </p>
-      <div class="flex flex-wrap justify-center gap-4">
+      <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
         <button
           v-for="(p, i) in players"
           :key="p.id"
@@ -184,7 +191,7 @@ const hint = computed(() => {
     <!-- Zone de jeu -->
     <main
       v-else
-      class="flex flex-1 flex-col items-center justify-center gap-8 px-6 py-6 lg:flex-row lg:items-center lg:gap-12"
+      class="flex flex-1 flex-col items-center justify-center gap-4 px-4 py-4 landscape:flex-row landscape:gap-8 lg:gap-12 [@media(max-height:500px)]:py-2"
     >
       <!-- Cartes optionnelles (une seule par tour) -->
       <PlayWheelActions
@@ -207,12 +214,16 @@ const hint = computed(() => {
             ref="wheel"
             :segments="segments"
             :mode="mode"
-            class="w-[min(58vh,26rem)]"
+            class="w-[min(74vw,56vh,26rem)] [@media(max-height:500px)]:w-[min(74vw,42vh)]"
             @settled="onSettled"
           />
         </button>
 
-        <p class="min-h-6 text-center text-sm text-primaire/80">{{ hint }}</p>
+        <p
+          class="min-h-6 max-w-[18rem] text-center text-xs text-primaire/80 sm:text-sm"
+        >
+          {{ hint }}
+        </p>
       </div>
     </main>
 
@@ -228,17 +239,9 @@ const hint = computed(() => {
     <!-- Pied : tour courant + ordre des joueurs -->
     <footer
       v-if="gameStarted"
-      class="flex flex-col items-start gap-4 px-6 pb-6 sm:flex-row sm:items-end sm:justify-between"
+      class="flex flex-col items-start gap-3 px-4 pb-4 sm:flex-row sm:items-end sm:justify-between sm:gap-4 sm:px-6 lg:pb-6"
     >
       <PlayTurnBanner :player="currentPlayer" />
-      <div class="flex flex-wrap gap-2">
-        <PlayPlayerChip
-          v-for="(p, i) in players"
-          :key="p.id"
-          :player="p"
-          :active="i === currentIndex"
-        />
-      </div>
     </footer>
   </div>
 </template>

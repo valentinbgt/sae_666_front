@@ -18,13 +18,13 @@ const actions: { key: WheelMode; label: string; icon: string }[] = [
 </script>
 
 <template>
-  <div class="flex w-52 flex-col gap-3">
+  <div class="flex w-full flex-wrap justify-center gap-2 landscape:w-52 landscape:flex-col landscape:gap-3">
     <button
       v-for="a in actions"
       :key="a.key"
       type="button"
       :disabled="disabled"
-      class="flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40"
+      class="flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40 lg:px-6 lg:py-3"
       :class="
         active === a.key
           ? 'bg-cta text-primaire shadow-[0_4px_0_#9e5227]'

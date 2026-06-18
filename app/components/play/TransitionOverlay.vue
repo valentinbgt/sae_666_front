@@ -13,9 +13,9 @@ const emit = defineEmits<{ dismiss: [] }>();
     @click="emit('dismiss')"
   >
     <!-- Message retourné (joueur en face) -->
-    <div class="flex flex-col items-center gap-5 px-8 text-center rotate-180">
+    <div class="flex flex-col items-center gap-3 px-6 text-center sm:gap-5 sm:px-8 rotate-180">
       <p
-        class="text-4xl text-primaire sm:text-5xl"
+        class="text-3xl text-primaire lg:text-5xl [@media(max-height:500px)]:text-2xl"
         style="font-family: Georgia, serif"
       >
         <span
@@ -31,9 +31,9 @@ const emit = defineEmits<{ dismiss: [] }>();
     </div>
 
     <!-- Message normal (joueur face à l'écran) -->
-    <div class="flex flex-col items-center gap-5 px-8 text-center">
+    <div class="flex flex-col items-center gap-3 px-6 text-center sm:gap-5 sm:px-8">
       <p
-        class="text-4xl text-primaire sm:text-5xl"
+        class="text-3xl text-primaire lg:text-5xl [@media(max-height:500px)]:text-2xl"
         style="font-family: Georgia, serif"
       >
         <span

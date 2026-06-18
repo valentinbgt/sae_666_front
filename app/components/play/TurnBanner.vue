@@ -7,20 +7,23 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-3 sm:gap-4">
     <img
       src="/images/assets/grenouille.png"
       alt=""
-      class="h-16 w-auto select-none drop-shadow-lg sm:h-20"
+      class="h-48 w-auto select-none drop-shadow-lg absolute -bottom-12 -left-8 z-0 opacity-80 -rotate-6 brightness-60"
     />
     <p
       v-if="player"
-      class="text-4xl text-primaire sm:text-5xl"
-      style="font-family: Georgia, serif"
+      class="text-2xl text-primaire lg:text-5xl z-10 absolute bottom-3 right-5"
     >
-      <span class="inline-flex flex-wrap items-center gap-2">
-        Au tour de
-        <span :style="{ color: player.color }">{{ player.name }}</span>
+      <span class="flex items-end justify-end flex-col flex-wrap">
+        <span class="text-lg" style="font-family: Georgia, serif"
+          >Au tour de</span
+        >
+        <span class="text-4xl font-semibold" :style="{ color: player.color }">{{
+          player.name
+        }}</span>
       </span>
     </p>
   </div>
