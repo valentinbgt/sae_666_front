@@ -1,35 +1,37 @@
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth', title: 'CROOAK – Jouer' })
+//definePageMeta({ middleware: 'auth', title: 'CROOAK – Jouer' })
+definePageMeta({ title: "CROOAK – Jouer" });
 
-const { createGame } = useGame()
-const { me, fetchMe } = useMe()
+const { createGame } = useGame();
+const { me, fetchMe } = useMe();
 
-const creating = ref(false)
-const error = ref<string | null>(null)
-const resumeCode = ref<string | null>(null)
+const creating = ref(false);
+const error = ref<string | null>(null);
+const resumeCode = ref<string | null>(null);
 
-const RESUME_KEY = 'crooak.activeGame'
+const RESUME_KEY = "crooak.activeGame";
 
 onMounted(async () => {
-  resumeCode.value = localStorage.getItem(RESUME_KEY)
+  resumeCode.value = localStorage.getItem(RESUME_KEY);
   try {
-    await fetchMe()
+    await fetchMe();
   } catch {
     /* token éventuellement expiré : on laisse l'utilisateur agir */
   }
-})
+});
 
 async function newGame() {
-  creating.value = true
-  error.value = null
+  creating.value = true;
+  error.value = null;
   try {
-    const game = await createGame()
-    localStorage.setItem(RESUME_KEY, game.code)
-    await navigateTo(`/play/${game.code}`)
+    const game = await createGame();
+    localStorage.setItem(RESUME_KEY, game.code);
+    await navigateTo(`/play/${game.code}`);
   } catch (e: any) {
-    error.value = e?.data?.message ?? 'Impossible de créer la partie. Réessaie.'
+    error.value =
+      e?.data?.message ?? "Impossible de créer la partie. Réessaie.";
   } finally {
-    creating.value = false
+    creating.value = false;
   }
 }
 </script>
@@ -37,7 +39,14 @@ async function newGame() {
 <template>
   <div
     class="flex min-h-dvh flex-col items-center justify-center gap-8 px-6 text-center"
-    style="background: linear-gradient(to bottom right, #431e14 0%, #431e14 40%, #bd652e 100%)"
+    style="
+      background: linear-gradient(
+        to bottom right,
+        #431e14 0%,
+        #431e14 40%,
+        #bd652e 100%
+      );
+    "
   >
     <img src="/images/logo_crooak.png" alt="CROOAK" class="h-20 w-auto" />
 
@@ -46,7 +55,8 @@ async function newGame() {
         Prêt à jouer ?
       </h1>
       <p v-if="me" class="text-sm text-primaire/70">
-        Connecté en tant que <strong class="text-primaire">{{ me.username }}</strong>
+        Connecté en tant que
+        <strong class="text-primaire">{{ me.username }}</strong>
       </p>
     </div>
 
@@ -57,7 +67,7 @@ async function newGame() {
         class="btn-filled inline-flex items-center justify-center rounded-full px-8 py-4 text-sm font-bold uppercase tracking-widest text-primaire disabled:opacity-50"
         @click="newGame"
       >
-        {{ creating ? 'Création…' : 'Nouvelle partie' }}
+        {{ creating ? "Création…" : "Nouvelle partie" }}
       </button>
 
       <NuxtLink
