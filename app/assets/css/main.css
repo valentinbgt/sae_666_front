@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+  --color-cta: #BD652E;
+  --color-primaire: #F7E7C6;
+  --color-accent: #733B1E;
+  --color-secondaire: #431E14;
+  --color-alerte: #C32C2C;
+  --color-validation: #109849;
+}
+
+button, [role="button"] {
+  cursor: pointer;
+}
