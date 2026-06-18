@@ -19,11 +19,8 @@ defineProps<{
       style="font-family: Georgia, serif"
     >
       <span class="inline-flex flex-wrap items-center gap-2">
-        <span
-          class="h-4 w-4 rounded-full ring-2 ring-primaire/40"
-          :style="{ backgroundColor: player.color }"
-        />
-        Au tour de {{ player.name }}.
+        Au tour de
+        <span :style="{ color: player.color }">{{ player.name }}</span>
       </span>
     </p>
   </div>

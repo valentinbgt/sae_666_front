@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  message: string
+  message: { text: string; color?: string }[]
   color?: string
 }>()
 
@@ -22,7 +22,11 @@ const emit = defineEmits<{ dismiss: [] }>()
         class="text-4xl text-primaire sm:text-5xl"
         style="font-family: Georgia, serif"
       >
-        {{ message }}
+        <span
+          v-for="(part, i) in message"
+          :key="i"
+          :style="part.color ? { color: part.color } : {}"
+        >{{ part.text }}</span>
       </p>
       <p class="text-xs uppercase tracking-widest text-primaire/40">Appuie pour continuer</p>
     </div>

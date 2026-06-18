@@ -52,16 +52,18 @@ async function onWheelClick() {
   await wheel.value?.spin();
 }
 
-const overlayMessage = ref<string | null>(null);
+type OverlaySegment = { text: string; color?: string };
+
+const overlayMessage = ref<OverlaySegment[] | null>(null);
 const overlayColor = ref<string | undefined>(undefined);
 
 function cases(n: number | undefined) {
   return n === 1 ? "1 case" : `${n ?? "?"} cases`;
 }
 
-function showOverlay(message: string, color?: string) {
-  overlayMessage.value = message;
-  overlayColor.value = color;
+function showOverlay(segments: OverlaySegment[], dotColor?: string) {
+  overlayMessage.value = segments;
+  overlayColor.value = dotColor;
 }
 
 function dismissOverlay() {
@@ -77,17 +79,24 @@ function onSettled(segment: WheelSegment) {
 
   if (prevMode === "select") {
     showOverlay(
-      `${currentPlayer.value?.name} échange avec ${selectedPlayer.value?.name}`,
+      [
+        { text: currentPlayer.value?.name ?? "?", color: currentPlayer.value?.color },
+        { text: " échange avec " },
+        { text: selectedPlayer.value?.name ?? "?", color: selectedPlayer.value?.color },
+      ],
       selectedPlayer.value?.color,
     );
   } else if (prevMode === "terrain") {
     showOverlay(
-      `Terrain : ${cases(segment.value)}`,
+      [{ text: `Terrain : ${cases(segment.value)}` }],
       currentPlayer.value?.color,
     );
   } else {
     showOverlay(
-      `${currentPlayer.value?.name}, avance de ${cases(result.value?.value)}`,
+      [
+        { text: currentPlayer.value?.name ?? "?", color: currentPlayer.value?.color },
+        { text: `, avance de ${cases(result.value?.value)}` },
+      ],
       currentPlayer.value?.color,
     );
   }
@@ -95,10 +104,10 @@ function onSettled(segment: WheelSegment) {
 
 function handleEndTurn() {
   endTurn();
-  showOverlay(
-    `Au tour de ${currentPlayer.value?.name}`,
-    currentPlayer.value?.color,
-  );
+  showOverlay([
+    { text: "Au tour de " },
+    { text: currentPlayer.value?.name ?? "?", color: currentPlayer.value?.color },
+  ]);
 }
 
 const hint = computed(() => {
