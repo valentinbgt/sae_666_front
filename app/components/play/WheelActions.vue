@@ -8,12 +8,11 @@ defineProps<{
 
 const emit = defineEmits<{ choose: [action: WheelMode] }>()
 
-// L'ordre et les libellés suivent la maquette : Avancer / Boost / Echange / Terrain.
-// « Echange » = mode OVNI (sélection d'un joueur).
+// L'avance est l'action par défaut (clic sur la roue) → pas de bouton dédié.
+// Cartes optionnelles, une seule par tour : Boost / OVNI (échange) / Terrain.
 const actions: { key: WheelMode; label: string; icon: string }[] = [
-  { key: 'advance', label: 'Avancer', icon: 'ph:arrow-fat-up-fill' },
   { key: 'boost', label: 'Boost', icon: 'ph:lightning-fill' },
-  { key: 'select', label: 'Echange', icon: 'ph:arrows-left-right-fill' },
+  { key: 'select', label: 'OVNI', icon: 'ph:arrows-left-right-fill' },
   { key: 'terrain', label: 'Terrain', icon: 'ph:shovel-fill' },
 ]
 </script>
