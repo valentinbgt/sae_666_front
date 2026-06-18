@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { WheelMode } from "~/types/play";
 
-defineProps<{
+const props = defineProps<{
   disabled?: boolean;
   active?: WheelMode | null;
 }>();
@@ -15,6 +15,12 @@ const actions: { key: WheelMode; label: string; image: string }[] = [
   { key: "select", label: "OVNI", image: "/images/assets/ovni.png" },
   { key: "terrain", label: "Terrain", image: "/images/assets/terrain.png" },
 ];
+
+// Une carte est sélectionnée uniquement si `active` correspond à une carte
+// (boost/select/terrain). La valeur par défaut "advance" = aucune sélection.
+const hasCardSelected = computed(() =>
+  actions.some((a) => a.key === props.active),
+);
 </script>
 
 <template>
@@ -28,9 +34,11 @@ const actions: { key: WheelMode; label: string; image: string }[] = [
       :disabled="disabled"
       class="flex flex-col items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40 lg:px-6 lg:py-3"
       :class="
-        active === a.key
-          ? 'opacity-100 text-primaire'
-          : 'opacity-50  text-primaire hover:bg-secondaire'
+        !hasCardSelected
+          ? 'opacity-100 text-primaire hover:bg-secondaire'
+          : active === a.key
+            ? 'opacity-100 text-primaire'
+            : 'opacity-50 text-primaire hover:bg-secondaire'
       "
       @click="emit('choose', a.key)"
     >
