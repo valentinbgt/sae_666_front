@@ -49,8 +49,47 @@ async function onWheelClick() {
   await wheel.value?.spin()
 }
 
+const overlayMessage = ref<string | null>(null)
+const overlayColor = ref<string | undefined>(undefined)
+
+function cases(n: number | undefined) {
+  return n === 1 ? '1 case' : `${n ?? '?'} cases`
+}
+
+function showOverlay(message: string, color?: string) {
+  overlayMessage.value = message
+  overlayColor.value = color
+}
+
+function dismissOverlay() {
+  const wasDone = phase.value === 'done'
+  overlayMessage.value = null
+  overlayColor.value = undefined
+  if (wasDone) handleEndTurn()
+}
+
 function onSettled(segment: WheelSegment) {
+  const prevMode = mode.value
   settle(segment)
+
+  if (prevMode === 'select') {
+    showOverlay(
+      `${currentPlayer.value?.name} échange avec ${selectedPlayer.value?.name}`,
+      selectedPlayer.value?.color,
+    )
+  } else if (prevMode === 'terrain') {
+    showOverlay(`Terrain : ${cases(segment.value)}`, currentPlayer.value?.color)
+  } else {
+    showOverlay(
+      `${currentPlayer.value?.name}, avance de ${cases(result.value?.value)} !`,
+      currentPlayer.value?.color,
+    )
+  }
+}
+
+function handleEndTurn() {
+  endTurn()
+  showOverlay(`Au tour de ${currentPlayer.value?.name} !`, currentPlayer.value?.color)
 }
 
 const hint = computed(() => {
@@ -139,29 +178,18 @@ const hint = computed(() => {
 
         <p class="min-h-6 text-center text-sm text-primaire/80">{{ hint }}</p>
 
-        <div class="flex items-center gap-3">
-          <button
-            v-if="phase === 'done'"
-            type="button"
-            class="btn-filled inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-bold uppercase tracking-widest text-primaire"
-            @click="endTurn"
-          >
-            Joueur suivant
-          </button>
-        </div>
-
-        <!-- Résultat -->
-        <div
-          v-if="phase === 'done' && result"
-          class="flex flex-col items-center"
-        >
-          <span class="text-xs uppercase tracking-[0.3em] text-primaire/50">Résultat</span>
-          <span class="text-5xl text-cta" style="font-family: Georgia, serif">
-            {{ result.value }}
-          </span>
-        </div>
       </div>
     </main>
+
+    <!-- Overlay de transition plein écran (tap to dismiss) -->
+    <Transition name="overlay">
+      <PlayTransitionOverlay
+        v-if="overlayMessage"
+        :message="overlayMessage"
+        :color="overlayColor"
+        @dismiss="dismissOverlay"
+      />
+    </Transition>
 
     <!-- Pied : tour courant + ordre des joueurs -->
     <footer v-if="gameStarted" class="flex flex-col items-start gap-4 px-6 pb-6 sm:flex-row sm:items-end sm:justify-between">
@@ -177,3 +205,17 @@ const hint = computed(() => {
     </footer>
   </div>
 </template>
+
+<style scoped>
+.overlay-enter-active {
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.overlay-leave-active {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.overlay-enter-from,
+.overlay-leave-to {
+  opacity: 0;
+  transform: scale(1.04);
+}
+</style>
