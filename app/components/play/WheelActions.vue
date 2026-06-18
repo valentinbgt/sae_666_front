@@ -10,8 +10,15 @@ const emit = defineEmits<{ choose: [action: WheelMode] }>();
 
 // L'avance est l'action par défaut (clic sur la roue) → pas de bouton dédié.
 // Cartes optionnelles, une seule par tour : Boost / OVNI (échange) / Terrain.
-const actions: { key: WheelMode; label: string; image: string }[] = [
-  { key: "boost", label: "Boost", image: "/images/assets/boost.png" },
+type Action = { key: WheelMode; label: string; image: string };
+
+const boost: Action = {
+  key: "boost",
+  label: "Boost",
+  image: "/images/assets/boost.png",
+};
+// OVNI (échange) et Terrain restent toujours côte à côte.
+const pair: Action[] = [
   { key: "select", label: "OVNI", image: "/images/assets/ovni.png" },
   { key: "terrain", label: "Terrain", image: "/images/assets/terrain.png" },
 ];
@@ -19,38 +26,67 @@ const actions: { key: WheelMode; label: string; image: string }[] = [
 // Une carte est sélectionnée uniquement si `active` correspond à une carte
 // (boost/select/terrain). La valeur par défaut "advance" = aucune sélection.
 const hasCardSelected = computed(() =>
-  actions.some((a) => a.key === props.active),
+  [boost, ...pair].some((a) => a.key === props.active),
 );
 </script>
 
 <template>
+  <!-- Bouton réutilisable : Boost seul au-dessus, OVNI + Terrain côte à côte.
+       Portrait → tout sur une ligne ; landscape → Boost centré puis la paire. -->
   <div
-    class="flex w-full flex-wrap justify-center gap-2 landscape:w-52 landscape:flex-col landscape:gap-3"
+    class="flex w-full flex-wrap items-start justify-center gap-2 landscape:w-auto landscape:flex-col landscape:items-center landscape:gap-3"
   >
     <button
-      v-for="a in actions"
-      :key="a.key"
       type="button"
       :disabled="disabled"
-      class="flex flex-col items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40 lg:px-6 lg:py-3"
+      class="flex h-48 w-auto flex-col items-center justify-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40"
       :class="
         !hasCardSelected
           ? 'opacity-100 text-primaire hover:bg-secondaire'
-          : active === a.key
+          : active === boost.key
             ? 'opacity-100 text-primaire'
             : 'opacity-50 text-primaire hover:bg-secondaire'
       "
-      @click="emit('choose', a.key)"
+      @click="emit('choose', boost.key)"
     >
       <img
-        :src="a.image"
-        :alt="a.label"
-        class="h-24 w-auto select-none object-contain transition"
+        :src="boost.image"
+        :alt="boost.label"
+        class="h-32 w-auto select-none object-contain transition"
         :class="
-          active === a.key ? 'drop-shadow-[0_0_8px_rgba(247,231,198,1)]' : ''
+          active === boost.key ? 'drop-shadow-[0_0_8px_rgba(247,231,198,1)]' : ''
         "
       />
-      {{ a.label }}
+      {{ boost.label }}
     </button>
+
+    <!-- OVNI + Terrain : toujours sur une même ligne horizontale. -->
+    <div class="flex items-start justify-center gap-2 landscape:gap-3">
+      <button
+        v-for="a in pair"
+        :key="a.key"
+        type="button"
+        :disabled="disabled"
+        class="flex h-48 w-auto flex-col items-center justify-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40"
+        :class="
+          !hasCardSelected
+            ? 'opacity-100 text-primaire hover:bg-secondaire'
+            : active === a.key
+              ? 'opacity-100 text-primaire'
+              : 'opacity-50 text-primaire hover:bg-secondaire'
+        "
+        @click="emit('choose', a.key)"
+      >
+        <img
+          :src="a.image"
+          :alt="a.label"
+          class="h-32 w-auto select-none object-contain transition"
+          :class="
+            active === a.key ? 'drop-shadow-[0_0_8px_rgba(247,231,198,1)]' : ''
+          "
+        />
+        {{ a.label }}
+      </button>
+    </div>
   </div>
 </template>
