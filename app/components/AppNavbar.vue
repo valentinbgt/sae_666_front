@@ -23,6 +23,24 @@
 
     <!-- Boutons -->
     <div class="flex items-center gap-3">
+      <!-- Indicateur de connexion -->
+      <NuxtLink
+        v-if="isLoggedIn"
+        to="/play"
+        class="hidden md:inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-white/70 hover:text-white transition-colors"
+      >
+        <span class="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_6px_1px_rgba(74,222,128,0.7)]" />
+        Connecté
+      </NuxtLink>
+      <NuxtLink
+        v-else
+        to="/login"
+        class="hidden md:inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-white/50 hover:text-white/80 transition-colors"
+      >
+        <span class="w-2 h-2 rounded-full bg-white/30" />
+        Se connecter
+      </NuxtLink>
+
       <NuxtLink
         to="/precommander"
         class="btn-filled hidden md:inline-flex items-center px-5 py-2 rounded-full text-white text-xs font-bold tracking-widest uppercase"
@@ -38,3 +56,8 @@
     </div>
   </nav>
 </template>
+
+<script setup lang="ts">
+const { token } = useApi()
+const isLoggedIn = computed(() => !!token.value)
+</script>
