@@ -34,6 +34,13 @@ const {
   endTurn,
 } = useGameSession(orderedPlayers())
 
+const gameStarted = ref(false)
+
+function pickFirstPlayer(index: number) {
+  currentIndex.value = index
+  gameStarted.value = true
+}
+
 const wheel = ref<{ spin: () => Promise<void> } | null>(null)
 
 async function onWheelClick() {
@@ -76,8 +83,34 @@ const hint = computed(() => {
       </button>
     </header>
 
+    <!-- Sélection du premier joueur -->
+    <main
+      v-if="!gameStarted"
+      class="flex flex-1 flex-col items-center justify-center gap-8 px-6 py-6"
+    >
+      <p class="text-2xl text-primaire" style="font-family: Georgia, serif">Qui commence ?</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <button
+          v-for="(p, i) in players"
+          :key="p.id"
+          type="button"
+          class="flex items-center gap-3 rounded-full bg-secondaire/70 px-6 py-3 text-sm font-bold uppercase tracking-wide text-primaire transition hover:bg-secondaire hover:scale-105"
+          @click="pickFirstPlayer(i)"
+        >
+          <span
+            class="h-4 w-4 shrink-0 rounded-full ring-2 ring-primaire/40"
+            :style="{ backgroundColor: p.color }"
+          />
+          {{ p.name }}
+        </button>
+      </div>
+    </main>
+
     <!-- Zone de jeu -->
-    <main class="flex flex-1 flex-col items-center justify-center gap-8 px-6 py-6 lg:flex-row lg:items-center lg:gap-12">
+    <main
+      v-else
+      class="flex flex-1 flex-col items-center justify-center gap-8 px-6 py-6 lg:flex-row lg:items-center lg:gap-12"
+    >
       <!-- Cartes optionnelles (une seule par tour) -->
       <PlayWheelActions
         :active="action"
@@ -131,7 +164,7 @@ const hint = computed(() => {
     </main>
 
     <!-- Pied : tour courant + ordre des joueurs -->
-    <footer class="flex flex-col items-start gap-4 px-6 pb-6 sm:flex-row sm:items-end sm:justify-between">
+    <footer v-if="gameStarted" class="flex flex-col items-start gap-4 px-6 pb-6 sm:flex-row sm:items-end sm:justify-between">
       <PlayTurnBanner :player="currentPlayer" />
       <div class="flex flex-wrap gap-2">
         <PlayPlayerChip
