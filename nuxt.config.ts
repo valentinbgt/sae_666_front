@@ -4,8 +4,15 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  ssr: true,
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/images/favicon.png' }
+      ]
+    }
+  },
 
+  ssr: true,
   css: ['~/assets/css/main.css'],
 
   vite: {
@@ -21,4 +28,6 @@ export default defineNuxtConfig({
       apiBase: process.env.NUXT_PUBLIC_API_BASE ?? 'https://localhost/api/crooak_api',
     },
   },
+
+  modules: ['@nuxt/icon'],
 })

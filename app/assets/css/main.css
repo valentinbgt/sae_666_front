@@ -1,7 +1,10 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 
 @theme {
+  --font-sans: 'Figtree', sans-serif;
   --color-cta: #BD652E;
+  --color-cta-dark: #9e5227;
   --color-primaire: #F7E7C6;
   --color-accent: #733B1E;
   --color-secondaire: #431E14;
@@ -9,6 +12,128 @@
   --color-validation: #109849;
 }
 
+body {
+  font-family: 'Figtree', sans-serif;
+  background-color: #431E14;
+}
+
+.navlink {
+  color: #F7E7C6;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+}
+.navlink:hover {
+  color: #BD652E;
+  transform: translateY(-2px);
+}
+
 button, [role="button"] {
   cursor: pointer;
 }
+
+
+.btn-dark {
+  background-color: #431E14;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-dark:hover {
+  background-color: #2e1309;
+}
+
+.btn-outline {
+  border: 1px solid #BD652E;
+  color: #BD652E;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn-outline:hover {
+  border-color: #9e5227;
+  color: #9e5227;
+}
+
+.btn-filled {
+  background-color: #BD652E;
+  color: #F7E7C6;
+  box-shadow: 0 4px 0 #9e5227, 0 10px 15px rgba(0,0,0,0.2);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0);
+}
+.btn-filled:hover {
+  background-color: #c9733d;
+  box-shadow: 0 2px 0 #9e5227, 0 5px 10px rgba(0,0,0,0.2);
+  transform: translateY(2px);
+}
+.btn-filled:active {
+  background-color: #BD652E;
+  box-shadow: 0 0px 0 #9e5227, 0 0px 0px rgba(0,0,0,0.2);
+  transform: translateY(4px);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--rot));
+  }
+  50% {
+    transform: translateY(-15px) rotate(var(--rot));
+  }
+}
+
+.card-float {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.delay-1 {
+  animation-delay: -3s; /* -3s so it starts immediately but out of phase */
+}
+
+.shadow-card-stack {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+@keyframes gather-1 {
+  0% { translate: -130px 30px; rotate: -15deg; opacity: 0; }
+  100% { translate: -16px 16px; rotate: -6deg; opacity: 1; }
+}
+.animate-gather-1 { animation: gather-1 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards; }
+
+@keyframes gather-2 {
+  0% { translate: -65px 10px; rotate: -7deg; opacity: 0; }
+  100% { translate: -8px 8px; rotate: -3deg; opacity: 1; }
+}
+.animate-gather-2 { animation: gather-2 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards; }
+
+@keyframes gather-3 {
+  0% { translate: 0px 0px; rotate: 0deg; opacity: 0; }
+  100% { translate: 0px 0px; rotate: 0deg; opacity: 1; }
+}
+.animate-gather-3 { animation: gather-3 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards; }
+
+@keyframes gather-4 {
+  0% { translate: 65px 10px; rotate: 7deg; opacity: 0; }
+  100% { translate: 8px 8px; rotate: 3deg; opacity: 1; }
+}
+.animate-gather-4 { animation: gather-4 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards; }
+
+@keyframes gather-5 {
+  0% { translate: 130px 30px; rotate: 15deg; opacity: 0; }
+  100% { translate: 16px 16px; rotate: 6deg; opacity: 1; }
+}
+.animate-gather-5 { animation: gather-5 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards; }
