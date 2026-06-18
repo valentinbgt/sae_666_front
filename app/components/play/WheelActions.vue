@@ -1,38 +1,47 @@
 <script setup lang="ts">
-import type { WheelMode } from '~/types/play'
+import type { WheelMode } from "~/types/play";
 
 defineProps<{
-  disabled?: boolean
-  active?: WheelMode | null
-}>()
+  disabled?: boolean;
+  active?: WheelMode | null;
+}>();
 
-const emit = defineEmits<{ choose: [action: WheelMode] }>()
+const emit = defineEmits<{ choose: [action: WheelMode] }>();
 
 // L'avance est l'action par défaut (clic sur la roue) → pas de bouton dédié.
 // Cartes optionnelles, une seule par tour : Boost / OVNI (échange) / Terrain.
-const actions: { key: WheelMode; label: string; icon: string }[] = [
-  { key: 'boost', label: 'Boost', icon: 'ph:lightning-fill' },
-  { key: 'select', label: 'OVNI', icon: 'ph:arrows-left-right-fill' },
-  { key: 'terrain', label: 'Terrain', icon: 'ph:shovel-fill' },
-]
+const actions: { key: WheelMode; label: string; image: string }[] = [
+  { key: "boost", label: "Boost", image: "/images/assets/boost.png" },
+  { key: "select", label: "OVNI", image: "/images/assets/ovni.png" },
+  { key: "terrain", label: "Terrain", image: "/images/assets/terrain.png" },
+];
 </script>
 
 <template>
-  <div class="flex w-full flex-wrap justify-center gap-2 landscape:w-52 landscape:flex-col landscape:gap-3">
+  <div
+    class="flex w-full flex-wrap justify-center gap-2 landscape:w-52 landscape:flex-col landscape:gap-3"
+  >
     <button
       v-for="a in actions"
       :key="a.key"
       type="button"
       :disabled="disabled"
-      class="flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40 lg:px-6 lg:py-3"
+      class="flex flex-col items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40 lg:px-6 lg:py-3"
       :class="
         active === a.key
-          ? 'bg-cta text-primaire shadow-[0_4px_0_#9e5227]'
-          : 'bg-secondaire/70 text-primaire hover:bg-secondaire'
+          ? 'opacity-100 text-primaire'
+          : 'opacity-50  text-primaire hover:bg-secondaire'
       "
       @click="emit('choose', a.key)"
     >
-      <Icon :name="a.icon" class="h-4 w-4" />
+      <img
+        :src="a.image"
+        :alt="a.label"
+        class="h-24 w-auto select-none object-contain transition"
+        :class="
+          active === a.key ? 'drop-shadow-[0_0_8px_rgba(247,231,198,1)]' : ''
+        "
+      />
       {{ a.label }}
     </button>
   </div>
