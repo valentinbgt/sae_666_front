@@ -93,12 +93,28 @@
       >
         {{ $t("nav.preorder") }}
       </NuxtLink>
-      <NuxtLink
-        :to="localePath('/play')"
-        class="btn-filled inline-flex items-center px-5 py-2 rounded-full text-white text-xs font-bold tracking-widest uppercase"
-      >
-        {{ $t("nav.play") }}
-      </NuxtLink>
+      <div class="play-btn-wrapper relative inline-block">
+        <template v-for="(sp, i) in sparkles" :key="i">
+          <span
+            v-if="sp"
+            class="sparkle"
+            :style="{
+              top: sp.top,
+              left: sp.left,
+              '--size': sp.size,
+              '--dur': sp.dur,
+              '--delay': sp.delay,
+            }"
+            @animationiteration="reposition(i)"
+          ></span>
+        </template>
+        <NuxtLink
+          :to="localePath('/play')"
+          class="btn-filled inline-flex items-center px-5 py-2 rounded-full text-white text-xs font-bold tracking-widest uppercase relative z-10"
+        >
+          {{ $t("nav.play") }}
+        </NuxtLink>
+      </div>
     </div>
 
     <!-- Hamburger Button (Mobile) -->
@@ -198,9 +214,54 @@
   </nav>
 </template>
 
+<style scoped>
+.sparkle {
+  --size: 4px;
+  --color: #FFD700;
+  --dur: 1.8s;
+  --delay: 0s;
+
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: var(--color);
+  border-radius: 50%;
+  box-shadow: 0 0 4px 1px var(--color);
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  animation: sparkle-twinkle var(--dur) ease-in-out var(--delay) infinite;
+}
+
+
+@keyframes sparkle-twinkle {
+  0%   { opacity: 0;   transform: scale(0.2); }
+  35%  { opacity: 1;   transform: scale(1.3); }
+  100% { opacity: 0;   transform: scale(0.2); }
+}
+</style>
+
 <script setup>
 const { locale } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 const localePath = useLocalePath();
 const isMenuOpen = ref(false);
+
+const rnd = (min, max) => (Math.random() * (max - min) + min).toFixed(1);
+
+const makeSparkle = (delayOverride) => ({
+  top: `${rnd(-12, 112)}%`,
+  left: `${rnd(-12, 112)}%`,
+  size: `${rnd(2, 4)}px`,
+  dur: `${(Math.random() * 0.5 + 0.5).toFixed(2)}s`,
+  delay: delayOverride ?? `${(Math.random() * 2).toFixed(2)}s`,
+});
+
+const sparkles = ref(Array.from({ length: 8 }, (_, i) => makeSparkle((i * 0.25).toFixed(2) + 's')));
+
+const reposition = async (i) => {
+  sparkles.value[i] = null;
+  await nextTick();
+  sparkles.value[i] = makeSparkle('0s');
+};
 </script>

@@ -87,7 +87,7 @@ const rgpdAccepted = ref(false)
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center border-t border-[#F3E7D3]/10 pt-8 gap-6">
         <div class="flex flex-col md:flex-row items-center justify-between text-[10px] font-bold text-white/50 tracking-widest uppercase gap-4 md:gap-8">
           <div class="flex items-center gap-2">
-            <span>TEAM MMI TROYES-CASTRE</span>
+            <span>TEAM MMI TROYES-CASTRES</span>
             <span>—</span>
             <span>{{ $t('footer.rights') }}</span>
           </div>
