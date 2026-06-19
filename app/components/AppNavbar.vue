@@ -139,11 +139,11 @@
             >{{ $t("nav.rules") }}</NuxtLink
           >
         </li>
-        <li>
+        <li class="flex">
           <NuxtLink
             :to="localePath('/actualites')"
             @click="isMenuOpen = false"
-            class="hover:text-[#D47035] transition"
+            class="hover:text-[#D47035] transition text-center"
             >{{ $t("nav.news") }}</NuxtLink
           >
         </li>
