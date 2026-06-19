@@ -434,7 +434,15 @@ onUnmounted(() => panelObserver?.disconnect());
               </svg>
             </span>
             <span class="text-xs text-secondaire/70 leading-snug">
-              J'accepte les CGU et j'autorise Crooak à traiter mes données.
+              J'accepte les
+              <NuxtLink
+                to="/confidentialite"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-cta underline underline-offset-2 hover:opacity-80"
+                @click.stop
+              >CGU</NuxtLink>
+              et j'autorise Crooak à traiter mes données.
             </span>
           </label>
           <p v-if="regErrors.accept" class="text-alerte text-xs">
