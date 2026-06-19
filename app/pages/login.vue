@@ -93,6 +93,24 @@ const isDark = computed(() => tab.value === "connexion");
 
 const showLoginPassword = ref(false);
 const showRegPassword = ref(false);
+
+// Hauteur du panneau de formulaires : suit le contenu actif (connexion plus
+// court que inscription) pour une transition douce. Un ResizeObserver couvre
+// aussi l'apparition/disparition des messages d'erreur de validation.
+const panelRef = ref<HTMLElement | null>(null);
+const panelHeight = ref("auto");
+let panelObserver: ResizeObserver | null = null;
+
+onMounted(() => {
+  if (!panelRef.value) return;
+  panelObserver = new ResizeObserver(() => {
+    if (panelRef.value) panelHeight.value = `${panelRef.value.offsetHeight}px`;
+  });
+  panelObserver.observe(panelRef.value);
+  panelHeight.value = `${panelRef.value.offsetHeight}px`;
+});
+
+onUnmounted(() => panelObserver?.disconnect());
 </script>
 
 <template>
@@ -179,12 +197,16 @@ const showRegPassword = ref(false);
         </button>
       </div>
 
-      <!-- Formulaires (hauteur fixe) -->
-      <div class="h-[480px] overflow-y-auto">
+      <!-- Formulaires (hauteur adaptée au contenu, transition douce) -->
+      <div
+        class="overflow-hidden transition-[height] duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+        :style="{ height: panelHeight }"
+      >
+        <div ref="panelRef">
         <!-- Formulaire Connexion -->
         <form
           v-if="tab === 'connexion'"
-          class="px-8 py-6 space-y-4"
+          class="px-8 py-6 space-y-4 form-fade"
           @submit.prevent="handleLogin"
         >
           <div>
@@ -285,16 +307,16 @@ const showRegPassword = ref(false);
             Continuer avec Google
           </button>
 
-          <p class="text-center text-xs text-primaire/40 pt-2">
+          <!--<p class="text-center text-xs text-primaire/40 pt-2">
             Soutien Stratégique :
             <a href="#" class="text-cta hover:underline">Centre d'Aide</a>
-          </p>
+          </p>-->
         </form>
 
         <!-- Formulaire Inscription -->
         <form
           v-else
-          class="px-8 py-6 space-y-4"
+          class="px-8 py-6 space-y-4 form-fade"
           @submit.prevent="handleRegister"
         >
           <div>
@@ -434,10 +456,35 @@ const showRegPassword = ref(false);
             Continuer avec Google
           </button>
         </form>
+        </div>
       </div>
-      <!-- fin hauteur fixe -->
+      <!-- fin formulaires -->
     </div>
     <!-- fin carte -->
   </div>
   <!-- fin page -->
 </template>
+
+<style scoped>
+/* Petit fondu/glissement à chaque changement d'onglet */
+@keyframes formFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-fade {
+  animation: formFade 0.3s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-fade {
+    animation: none;
+  }
+}
+</style>
