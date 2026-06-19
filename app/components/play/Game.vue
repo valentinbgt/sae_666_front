@@ -44,41 +44,14 @@ const gameStarted = ref(false);
 // mise à l'échelle d'un seul bloc — comme une photo qu'on redimensionne. On
 // garde le ratio : les bords non couverts sont remplis par la couleur de fond
 // (letterbox). Toutes les tailles internes sont fixes (aucune media query
-// viewport) pour que le rendu soit strictement le même partout.
-const BASE_W = 784;
-const BASE_H = 515;
-const stageScale = ref(1);
-
-function updateStageScale() {
-  stageScale.value = Math.min(
-    window.innerWidth / BASE_W,
-    window.innerHeight / BASE_H,
-  );
-}
+// viewport) pour que le rendu soit strictement le même partout. Les overlays
+// plein écran (PlayTransitionOverlay) réutilisent la même échelle.
+const { stageStyle: stageBaseStyle } = useStageScale();
 
 const stageStyle = computed(() => ({
-  position: "absolute" as const,
-  left: "50%",
-  top: "50%",
-  width: `${BASE_W}px`,
-  height: `${BASE_H}px`,
-  transformOrigin: "center center",
-  transform: `translate(-50%, -50%) scale(${stageScale.value})`,
+  ...stageBaseStyle.value,
   backgroundImage: "url(/images/assets/wheel-bg.png)",
 }));
-
-onMounted(() => {
-  updateStageScale();
-  window.addEventListener("resize", updateStageScale);
-  window.addEventListener("orientationchange", updateStageScale);
-  window.visualViewport?.addEventListener("resize", updateStageScale);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("resize", updateStageScale);
-  window.removeEventListener("orientationchange", updateStageScale);
-  window.visualViewport?.removeEventListener("resize", updateStageScale);
-});
 
 /** Passe en plein écran (best effort) — nécessite un geste utilisateur. */
 function enterFullscreen() {
