@@ -377,24 +377,64 @@
           <!-- Liste des boutiques -->
           <div class="flex flex-col gap-4">
             <!-- Boutique 1 -->
-            <div class="bg-[#2E150D] border border-[#BD652E]/30 rounded-2xl p-6 flex items-start gap-4 hover:border-[#BD652E] transition-colors cursor-pointer group shadow-sm">
-              <div class="bg-[#BD652E] text-white w-12 h-12 shrink-0 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Icon name="ph:map-pin-fill" class="w-6 h-6" />
+            <div 
+              @click="activeShop = 'troyes'"
+              class="bg-[#2E150D] rounded-2xl p-6 flex flex-col items-start gap-4 transition-colors cursor-pointer group shadow-sm"
+              :class="activeShop === 'troyes' ? 'border-2 border-[#BD652E]' : 'border border-[#BD652E]/30 hover:border-[#BD652E]/70'"
+            >
+              <div class="flex items-start gap-4 w-full">
+                <div 
+                  class="text-white w-12 h-12 shrink-0 rounded-full flex items-center justify-center transition-transform"
+                  :class="activeShop === 'troyes' ? 'bg-[#BD652E] scale-110' : 'bg-[#431E14] group-hover:bg-[#BD652E]/80 group-hover:scale-105'"
+                >
+                  <Icon name="ph:map-pin-fill" class="w-6 h-6" />
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-[#F3E7D3] font-bold text-lg mb-1">{{ $t('preorder.map_shop_name') }}</h4>
+                  <p class="text-[#F3E7D3]/60 text-sm">{{ $t('preorder.map_shop_address') }}</p>
+                </div>
               </div>
-              <div>
-                <h4 class="text-[#F3E7D3] font-bold text-lg mb-1">{{ $t('preorder.map_shop_name') }}</h4>
-                <p class="text-[#F3E7D3]/60 text-sm">{{ $t('preorder.map_shop_address') }}</p>
+
+              <!-- Horaires Troyes -->
+              <div v-if="activeShop === 'troyes'" class="w-full mt-2 pt-4 border-t border-[#F3E7D3]/10 text-sm">
+                <h5 class="font-bold text-[#F3E7D3] mb-3">{{ $t('preorder.map_hours_title') }}</h5>
+                <ul class="flex flex-col gap-1">
+                  <li v-for="(h, i) in troyesHours" :key="i" class="flex justify-between" :class="h.closed ? 'text-white/40' : 'text-[#F3E7D3]/80'">
+                    <span>{{ $t(h.day) }}</span>
+                    <span>{{ h.closed ? $t('preorder.closed') : h.time }}</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
             <!-- Boutique 2 -->
-            <div class="bg-[#2E150D] border border-[#BD652E]/30 rounded-2xl p-6 flex items-start gap-4 hover:border-[#BD652E] transition-colors cursor-pointer group shadow-sm">
-              <div class="bg-[#BD652E] text-white w-12 h-12 shrink-0 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Icon name="ph:map-pin-fill" class="w-6 h-6" />
+            <div 
+              @click="activeShop = 'castres'"
+              class="bg-[#2E150D] rounded-2xl p-6 flex flex-col items-start gap-4 transition-colors cursor-pointer group shadow-sm"
+              :class="activeShop === 'castres' ? 'border-2 border-[#BD652E]' : 'border border-[#BD652E]/30 hover:border-[#BD652E]/70'"
+            >
+              <div class="flex items-start gap-4 w-full">
+                <div 
+                  class="text-white w-12 h-12 shrink-0 rounded-full flex items-center justify-center transition-transform"
+                  :class="activeShop === 'castres' ? 'bg-[#BD652E] scale-110' : 'bg-[#431E14] group-hover:bg-[#BD652E]/80 group-hover:scale-105'"
+                >
+                  <Icon name="ph:map-pin-fill" class="w-6 h-6" />
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-[#F3E7D3] font-bold text-lg mb-1">{{ $t('preorder.map_shop2_name') }}</h4>
+                  <p class="text-[#F3E7D3]/60 text-sm">{{ $t('preorder.map_shop2_address') }}</p>
+                </div>
               </div>
-              <div>
-                <h4 class="text-[#F3E7D3] font-bold text-lg mb-1">{{ $t('preorder.map_shop2_name') }}</h4>
-                <p class="text-[#F3E7D3]/60 text-sm">{{ $t('preorder.map_shop2_address') }}</p>
+
+              <!-- Horaires Castres -->
+              <div v-if="activeShop === 'castres'" class="w-full mt-2 pt-4 border-t border-[#F3E7D3]/10 text-sm">
+                <h5 class="font-bold text-[#F3E7D3] mb-3">{{ $t('preorder.map_hours_title') }}</h5>
+                <ul class="flex flex-col gap-1">
+                  <li v-for="(h, i) in castresHours" :key="i" class="flex justify-between" :class="h.closed ? 'text-white/40' : 'text-[#F3E7D3]/80'">
+                    <span>{{ $t(h.day) }}</span>
+                    <span>{{ h.closed ? $t('preorder.closed') : h.time }}</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -409,7 +449,8 @@
             scrolling="no" 
             marginheight="0" 
             marginwidth="0" 
-            src="https://www.openstreetmap.org/export/embed.html?bbox=4.0807,48.2669,4.0887,48.2729&amp;layer=mapnik&amp;marker=48.2699,4.0847" 
+            :src="mapUrl" 
+
             style="border: 0; filter: invert(90%) hue-rotate(180deg) sepia(20%) contrast(110%); pointer-events: auto;"
           ></iframe>
         </div>
@@ -456,11 +497,42 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref, computed } from 'vue'
 
 useHead({ title: 'Crooak' })
 
 const localePath = useLocalePath()
+
+const activeShop = ref('troyes')
+
+const troyesHours = [
+  { day: 'preorder.day_mon', time: '08:00–20:00' },
+  { day: 'preorder.day_tue', time: '08:00–20:00' },
+  { day: 'preorder.day_wed', time: '08:00–20:00' },
+  { day: 'preorder.day_thu', time: '08:00–20:00' },
+  { day: 'preorder.day_fri', time: '08:00–20:00' },
+  { day: 'preorder.day_sat', closed: true },
+  { day: 'preorder.day_sun', closed: true },
+]
+
+const castresHours = [
+  { day: 'preorder.day_mon', time: '07:30–19:00' },
+  { day: 'preorder.day_tue', time: '07:30–19:00' },
+  { day: 'preorder.day_wed', time: '07:30–19:00' },
+  { day: 'preorder.day_thu', time: '07:30–19:00' },
+  { day: 'preorder.day_fri', time: '07:30–19:00' },
+  { day: 'preorder.day_sat', closed: true },
+  { day: 'preorder.day_sun', closed: true },
+]
+
+const mapUrl = computed(() => {
+  if (activeShop.value === 'troyes') {
+    return "https://www.openstreetmap.org/export/embed.html?bbox=4.0807,48.2669,4.0887,48.2729&layer=mapnik&marker=48.2699,4.0847"
+  } else {
+    // Castres IUT Coordinates
+    return "https://www.openstreetmap.org/export/embed.html?bbox=2.2564,43.6183,2.2664,43.6243&layer=mapnik&marker=43.6213,2.2614"
+  }
+})
 
 // Parallax au scroll sur les décorations et le fond des sections 4/5
 // (éléments porteurs de l'attribut data-parallax). Respecte prefers-reduced-motion.
