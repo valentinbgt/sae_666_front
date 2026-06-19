@@ -163,7 +163,7 @@ function onSettled(segment: WheelSegment) {
     );
   } else if (prevMode === "terrain") {
     showOverlay(
-      [{ text: `Terrain : ${cases(segment.value)}` }],
+      [{ text: `Tu peux déplacer ${cases(segment.value)} tuiles` }],
       currentPlayer.value?.color,
     );
   } else {
