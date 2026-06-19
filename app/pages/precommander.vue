@@ -58,7 +58,7 @@ const selectedPayment = ref('card') // 'card' or 'paypal'
               </li>
             </ul>
             <div class="flex items-center justify-between mt-auto">
-              <span class="text-2xl text-[#BD652E]" style="font-family: Georgia, serif;">45,00 €</span>
+              <span class="text-2xl text-[#BD652E]" style="font-family: Georgia, serif;">20,00 €</span>
               <button 
                 @click="selectedEdition = 'base'"
                 :class="selectedEdition === 'base' ? 'bg-[#E7D3BE] text-[#2E150D]/80 cursor-default' : 'bg-[#BD652E] text-white hover:bg-[#A35222]'"
@@ -103,7 +103,7 @@ const selectedPayment = ref('card') // 'card' or 'paypal'
               </li>
             </ul>
             <div class="flex items-center justify-between mt-auto">
-              <span class="text-2xl text-[#BD652E]" style="font-family: Georgia, serif;">85,00 €</span>
+              <span class="text-2xl text-[#BD652E]" style="font-family: Georgia, serif;">35,00 €</span>
               <button 
                 @click="selectedEdition = 'deluxe'"
                 :class="selectedEdition === 'deluxe' ? 'bg-[#E7D3BE] text-[#2E150D]/80 cursor-default' : 'bg-[#BD652E] text-white hover:bg-[#A35222]'"
@@ -232,7 +232,7 @@ const selectedPayment = ref('card') // 'card' or 'paypal'
             <div class="space-y-4 text-sm opacity-90 mb-8 border-b border-white/10 pb-8">
               <div class="flex justify-between items-center">
                 <span>{{ selectedEdition === 'deluxe' ? $t('preorder.sum_dlx') : $t('preorder.sum_base') }}</span>
-                <span>{{ selectedEdition === 'deluxe' ? '85,00' : '45,00' }} €</span>
+                <span>{{ selectedEdition === 'deluxe' ? '35,00' : '20,00' }} €</span>
               </div>
               <div class="flex justify-between items-center">
                 <span>{{ $t('preorder.sum_shipping') }}</span>
@@ -240,13 +240,13 @@ const selectedPayment = ref('card') // 'card' or 'paypal'
               </div>
               <div class="flex justify-between items-center opacity-70">
                 <span>{{ $t('preorder.sum_tax') }}</span>
-                <span>{{ selectedEdition === 'deluxe' ? '14,16' : '7,50' }} €</span>
+                <span>{{ selectedEdition === 'deluxe' ? '5,83' : '3,33' }} €</span>
               </div>
             </div>
 
             <div class="flex justify-between items-end mb-2">
               <span class="text-lg">{{ $t('preorder.sum_total') }}</span>
-              <span class="text-3xl text-[#BD652E]" style="font-family: Georgia, serif;">{{ selectedEdition === 'deluxe' ? '85,00' : '45,00' }} €</span>
+              <span class="text-3xl text-[#BD652E]" style="font-family: Georgia, serif;">{{ selectedEdition === 'deluxe' ? '35,00' : '20,00' }} €</span>
             </div>
             <div class="text-[10px] opacity-50 mb-8 text-right">
               {{ $t('preorder.sum_tax_msg') }}
