@@ -108,14 +108,14 @@ defineExpose({ spin, spinning })
     <svg :viewBox="`0 0 ${SIZE} ${SIZE}`" class="h-full w-full overflow-visible">
       <!-- Groupe qui tourne (disque + segments + libellés) -->
       <g class="wheel-rot" :style="{ transform: `rotate(${rotation}deg)` }">
-        <circle :cx="C" :cy="C" :r="R" fill="#3b241a" />
+        <circle :cx="C" :cy="C" :r="R" fill="#431E14" />
         <path
           v-for="(sl, i) in slices"
           :key="`s${i}`"
           :d="sl.d"
-          :fill="mode === 'select' ? (sl.seg.color ?? '#3b241a') : '#3b241a'"
+          :fill="mode === 'select' ? (sl.seg.color ?? '#431E14') : (i % 2 === 0 ? '#F7E7C6' : '#431E14')"
           :fill-opacity="mode === 'select' ? 0.9 : 1"
-          stroke="#F7E7C6"
+          stroke="#733B1E"
           stroke-width="1.4"
           stroke-linejoin="round"
         />
@@ -127,7 +127,7 @@ defineExpose({ spin, spinning })
           :transform="`rotate(${sl.rot} ${sl.lx} ${sl.ly})`"
           text-anchor="middle"
           dominant-baseline="central"
-          fill="#F7E7C6"
+          :fill="mode === 'select' ? '#F7E7C6' : (i % 2 === 0 ? '#431E14' : '#F7E7C6')"
           font-family="Georgia, serif"
           :font-size="fontSize"
           :font-weight="mode === 'select' ? 600 : 400"
@@ -135,13 +135,13 @@ defineExpose({ spin, spinning })
       </g>
 
       <!-- Bordure fixe -->
-      <circle :cx="C" :cy="C" :r="R" fill="none" stroke="#F7E7C6" stroke-width="2" />
+      <circle :cx="C" :cy="C" :r="R" fill="none" stroke="#733B1E" stroke-width="2" />
 
       <!-- Pointeur fixe au milieu à gauche -->
       <polygon
         points="21,100 1,87 1,113"
         fill="#F7E7C6"
-        stroke="#3b241a"
+        stroke="#733B1E"
         stroke-width="1.2"
         stroke-linejoin="round"
       />
