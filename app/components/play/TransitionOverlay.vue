@@ -15,7 +15,7 @@ const emit = defineEmits<{ dismiss: [] }>();
     <!-- Message retourné (joueur en face) -->
     <div class="flex flex-col items-center gap-3 px-6 text-center sm:gap-5 sm:px-8 rotate-180">
       <p
-        class="text-8xl text-primaire"
+        class="text-7xl text-primaire"
         style="font-family: Georgia, serif"
       >
         <span
@@ -33,7 +33,7 @@ const emit = defineEmits<{ dismiss: [] }>();
     <!-- Message normal (joueur face à l'écran) -->
     <div class="flex flex-col items-center gap-3 px-6 text-center sm:gap-5 sm:px-8">
       <p
-        class="text-8xl text-primaire"
+        class="text-7xl text-primaire"
         style="font-family: Georgia, serif"
       >
         <span
