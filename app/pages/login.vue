@@ -230,7 +230,7 @@ onUnmounted(() => panelObserver?.disconnect());
               <label class="text-xs font-semibold text-primaire/80"
                 >Mot de passe</label
               >
-              <a href="#" class="text-xs text-cta hover:underline">Oublié ?</a>
+              <!--<a href="#" class="text-xs text-cta hover:underline">Oublié ?</a>-->
             </div>
             <div class="relative">
               <input
