@@ -107,6 +107,20 @@ button, [role="button"] {
   animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Parallax au scroll : la translation est pilotée par --parallax-y
+   (cf. composable useScrollParallax). Sans JS / mouvement réduit, la valeur
+   par défaut 0 laisse l'élément en place. */
+.parallax {
+  transform: translate3d(0, var(--parallax-y, 0), 0);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .parallax {
+    transform: none;
+    will-change: auto;
+  }
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(40px);

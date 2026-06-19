@@ -5,9 +5,10 @@
     <section
       class="relative min-h-screen flex items-center overflow-hidden"
     >
-      <!-- Image de fond -->
+      <!-- Image de fond (parallax au scroll, défile plus lentement = lointain) -->
       <div
-        class="absolute inset-0 bg-no-repeat opacity-15"
+        class="parallax absolute inset-y-[-30%] inset-x-0 bg-no-repeat opacity-15"
+        data-parallax="-0.6"
         style="background-image: url('/images/assets/chemin1.png'); background-size: 100% auto; background-position: center;"
       />
 
@@ -169,8 +170,10 @@
           <div class="flex flex-col md:flex-row justify-center gap-6 relative">
             
             <!-- Déco roche abstracte -->
-            <div class="absolute -left-12 -bottom-8 opacity-70 pointer-events-none hidden lg:block reveal reveal-delay-200">
-              <img src="/images/assets/pierre.png" alt="Décoration pierre" class="w-32 h-auto" />
+            <div class="absolute -left-12 -bottom-8 pointer-events-none hidden lg:block reveal reveal-delay-200">
+              <div class="parallax" data-parallax="0.5">
+                <img src="/images/assets/pierre.png" alt="Décoration pierre" class="w-32 h-auto" />
+              </div>
             </div>
             <!-- Carte 4 -->
             <div class="md:w-[calc(33.333%-16px)] w-full reveal reveal-delay-100">
@@ -225,7 +228,7 @@
           <div class="flex flex-col border-l-2 border-[#BD652E] pl-8 relative h-full reveal">
             <div class="flex justify-between items-start mb-6">
               <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">01</span>
-              <img src="/images/assets/grenouille.png" alt="Grenouille" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
+                <img src="/images/assets/grenouille.png" alt="Grenouille" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
             </div>
             <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act1_title') }}</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
@@ -239,11 +242,11 @@
               <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">02</span>
               
               <!-- Carte stylisée -->
-              <div class="relative w-16 h-24 -mt-2 bg-[#BD652E] rounded-xl p-[1.5px] shadow-[0_15px_30px_rgba(0,0,0,0.5)] transform rotate-6 hover:-translate-y-4 hover:rotate-12 hover:scale-110 transition-all duration-300 z-10 border border-white/40 group cursor-pointer">
-                <div class="w-full h-full rounded-[10px] overflow-hidden relative">
-                  <img src="/images/assets/carte_terrin.webp" alt="Carte Terrain" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <!-- Reflet vitré (glassmorphism) sur la carte -->
-                  <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 pointer-events-none"></div>
+                <div class="relative w-16 h-24 -mt-2 bg-[#BD652E] rounded-xl p-[1.5px] shadow-[0_15px_30px_rgba(0,0,0,0.5)] transform rotate-6 hover:-translate-y-4 hover:rotate-12 hover:scale-110 transition-all duration-300 z-10 border border-white/40 group cursor-pointer">
+                  <div class="w-full h-full rounded-[10px] overflow-hidden relative">
+                    <img src="/images/assets/carte_terrin.webp" alt="Carte Terrain" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    <!-- Reflet vitré (glassmorphism) sur la carte -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 pointer-events-none"></div>
                 </div>
               </div>
 
@@ -258,7 +261,7 @@
           <div class="flex flex-col border-l-2 border-[#BD652E] pl-8 relative h-full reveal">
             <div class="flex justify-between items-start mb-6">
               <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">03</span>
-              <img src="/images/assets/pierre_section3.png" alt="Objets" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
+                <img src="/images/assets/pierre_section3.png" alt="Objets" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
             </div>
             <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act3_title') }}</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
@@ -270,7 +273,7 @@
           <div class="flex flex-col border-l-2 border-[#BD652E] pl-8 relative h-full reveal reveal-delay-100">
             <div class="flex justify-between items-start mb-6">
               <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">04</span>
-              <img src="/images/assets/coffre_section3.png" alt="Coffre" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
+                <img src="/images/assets/coffre_section3.png" alt="Coffre" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
             </div>
             <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act4_title') }}</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
@@ -284,9 +287,13 @@
 
     <!-- WRAPPER SECTIONS 4 & 5 (Image de fond unifiée) -->
     <div class="relative w-full overflow-hidden">
-      <!-- Background Image Parallax (chemin_4_5.webp) -->
-      <div 
-        class="absolute inset-0 z-0 opacity-25 pointer-events-none bg-fixed bg-cover bg-top"
+      <!-- Fond parallax (chemin_4_5.webp) : défile plus lentement que le
+           contenu (vitesse négative = effet de profondeur). La couche déborde
+           de 30 % en haut et en bas pour avoir de la marge de translation, le
+           débordement est rogné par l'overflow-hidden du wrapper. -->
+      <div
+        class="parallax absolute inset-y-[-30%] inset-x-0 z-0 opacity-25 pointer-events-none bg-cover bg-top"
+        data-parallax="-0.6"
         style="background-image: url('/images/assets/chemin_4_5.webp');"
       ></div>
 
@@ -304,8 +311,12 @@
         </div>
 
         <!-- Decorations (Champignon et Empreinte) -->
-        <img src="/images/assets/champignon.png" alt="Champignon" class="absolute left-0 md:left-8 top-[280px] w-16 md:w-20 opacity-40 -rotate-12 pointer-events-none hidden md:block" />
-        <img src="/images/assets/main_grenouille.png" alt="Empreinte" class="absolute right-0 md:right-16 top-32 w-16 md:w-20 opacity-30 rotate-12 pointer-events-none hidden md:block" />
+        <div class="parallax absolute left-0 md:left-8 top-70 pointer-events-none hidden md:block" data-parallax="0.5">
+          <img src="/images/assets/champignon.png" alt="Champignon" class="w-16 md:w-20 opacity-40 -rotate-12" />
+        </div>
+        <div class="parallax absolute right-0 md:right-16 top-32 pointer-events-none hidden md:block" data-parallax="0.5">
+          <img src="/images/assets/main_grenouille.png" alt="Empreinte" class="w-16 md:w-20 opacity-30 rotate-12" />
+        </div>
 
         <!-- Paragraph -->
         <p class="text-[#F3E7D3]/80 text-lg md:text-xl leading-relaxed max-w-3xl mb-24 reveal">
@@ -430,6 +441,10 @@
 import { onMounted, onUnmounted } from 'vue'
 
 const localePath = useLocalePath()
+
+// Parallax au scroll sur les décorations et le fond des sections 4/5
+// (éléments porteurs de l'attribut data-parallax). Respecte prefers-reduced-motion.
+useScrollParallax()
 
 let observer = null
 
