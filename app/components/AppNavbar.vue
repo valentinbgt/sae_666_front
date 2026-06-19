@@ -42,31 +42,6 @@
           />
         </button>
 
-        <template v-if="isLoggedIn">
-          <span
-            class="hidden md:inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-white/70"
-          >
-            <span
-              class="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_6px_1px_rgba(74,222,128,0.7)]"
-            />
-            Connecté
-          </span>
-          <NuxtLink
-            to="/logout"
-            class="hidden md:inline-flex items-center px-4 py-2 rounded-full border border-white/20 text-white/60 hover:text-white hover:border-white/50 text-xs font-semibold tracking-widest uppercase transition-colors"
-          >
-            Déconnexion
-          </NuxtLink>
-        </template>
-        <NuxtLink
-          v-else
-          to="/login"
-          class="hidden md:inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-white/50 hover:text-white/80 transition-colors"
-        >
-          <span class="w-2 h-2 rounded-full bg-white/30" />
-          Se connecter
-        </NuxtLink>
-
         <div
           class="absolute top-full right-0 mt-2 bg-[#2E150D] border border-white/10 rounded-2xl shadow-2xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100"
         >
