@@ -32,9 +32,9 @@ const hasCardSelected = computed(() =>
 
 <template>
   <!-- Bouton réutilisable : Boost seul au-dessus, OVNI + Terrain côte à côte.
-       Portrait → tout sur une ligne ; landscape → Boost centré puis la paire. -->
+       Layout fixe (la scène /play est toujours en paysage de référence). -->
   <div
-    class="flex w-full flex-wrap items-start justify-center gap-2 landscape:w-auto landscape:flex-col landscape:items-center landscape:gap-3"
+    class="flex w-auto flex-col items-center justify-center gap-3"
   >
     <button
       type="button"
@@ -63,7 +63,7 @@ const hasCardSelected = computed(() =>
     </button>
 
     <!-- OVNI + Terrain : toujours sur une même ligne horizontale. -->
-    <div class="flex items-start justify-center gap-2 landscape:gap-3">
+    <div class="flex items-start justify-center gap-3">
       <button
         v-for="a in pair"
         :key="a.key"

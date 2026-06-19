@@ -39,6 +39,47 @@ const {
 
 const gameStarted = ref(false);
 
+// --- Scène à dimensions fixes (rendu identique sur tous les écrans) ---------
+// L'écran de jeu est dessiné dans une scène de référence (la maquette), puis
+// mise à l'échelle d'un seul bloc — comme une photo qu'on redimensionne. On
+// garde le ratio : les bords non couverts sont remplis par la couleur de fond
+// (letterbox). Toutes les tailles internes sont fixes (aucune media query
+// viewport) pour que le rendu soit strictement le même partout.
+const BASE_W = 784;
+const BASE_H = 515;
+const stageScale = ref(1);
+
+function updateStageScale() {
+  stageScale.value = Math.min(
+    window.innerWidth / BASE_W,
+    window.innerHeight / BASE_H,
+  );
+}
+
+const stageStyle = computed(() => ({
+  position: "absolute" as const,
+  left: "50%",
+  top: "50%",
+  width: `${BASE_W}px`,
+  height: `${BASE_H}px`,
+  transformOrigin: "center center",
+  transform: `translate(-50%, -50%) scale(${stageScale.value})`,
+  backgroundImage: "url(/images/assets/wheel-bg.png)",
+}));
+
+onMounted(() => {
+  updateStageScale();
+  window.addEventListener("resize", updateStageScale);
+  window.addEventListener("orientationchange", updateStageScale);
+  window.visualViewport?.addEventListener("resize", updateStageScale);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateStageScale);
+  window.removeEventListener("orientationchange", updateStageScale);
+  window.visualViewport?.removeEventListener("resize", updateStageScale);
+});
+
 /** Passe en plein écran (best effort) — nécessite un geste utilisateur. */
 function enterFullscreen() {
   const el = document.documentElement as HTMLElement & {
@@ -168,13 +209,8 @@ const hint = computed(() => {
 </script>
 
 <template>
-  <div
-    class="relative flex min-h-dvh flex-col bg-cover bg-center transition-[background-image]"
-    :style="
-      gameStarted ? { backgroundImage: 'url(/images/assets/wheel-bg.png)' } : {}
-    "
-  >
-    <!-- En-tête -->
+  <!-- Écran de sélection du premier joueur (mise en page responsive). -->
+  <div v-if="!gameStarted" class="relative flex min-h-dvh flex-col">
     <header class="flex items-center justify-between px-4 pt-4 lg:px-6 lg:pt-5">
       <span class="w-16 sm:w-20" />
       <img
@@ -191,9 +227,7 @@ const hint = computed(() => {
       </button>
     </header>
 
-    <!-- Sélection du premier joueur -->
     <main
-      v-if="!gameStarted"
       class="flex flex-1 flex-col items-center justify-center gap-6 px-4 py-6 sm:gap-8 sm:px-6"
     >
       <p
@@ -218,63 +252,82 @@ const hint = computed(() => {
         </button>
       </div>
     </main>
+  </div>
 
-    <!-- Zone de jeu -->
-    <main
-      v-else
-      class="flex flex-1 flex-col items-center justify-center gap-4 px-4 py-4 landscape:flex-row landscape:gap-8 lg:gap-12 [@media(max-height:500px)]:py-2"
+  <!-- Écran de jeu : scène à dimensions fixes, mise à l'échelle d'un bloc.
+       Le conteneur plein écran fournit le fond des bandes (letterbox) ; la
+       scène (784×515) garde des tailles fixes pour un rendu identique partout. -->
+  <div v-else class="fixed inset-0 overflow-hidden bg-[#2a1206]">
+    <div
+      class="flex flex-col overflow-hidden bg-cover bg-center"
+      :style="stageStyle"
     >
-      <!-- Cartes optionnelles (une seule par tour) -->
-      <PlayWheelActions
-        :active="action"
-        :disabled="cardsLocked"
-        @choose="chooseAction"
-      />
-
-      <!-- Roue + contrôles -->
-      <div class="flex flex-col items-center gap-4">
+      <!-- En-tête -->
+      <header class="flex items-center justify-between px-4 pt-4">
+        <span class="w-20" />
+        <img
+          src="/images/logo_crooak.png"
+          alt="CROOAK"
+          class="absolute left-5 top-4 h-12 w-auto"
+        />
         <button
           type="button"
-          :disabled="phase !== 'ready'"
-          class="rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cta disabled:cursor-default"
-          :class="phase === 'ready' ? 'cursor-pointer hover:scale-[1.02]' : ''"
-          :aria-label="hint"
-          @click="onWheelClick"
+          class="absolute right-8 top-7 w-20 text-right text-xs font-semibold uppercase tracking-widest text-primaire/50 transition hover:text-primaire"
+          @click="handleQuit"
         >
-          <PlayGameWheel
-            ref="wheel"
-            :segments="segments"
-            :mode="mode"
-            class="w-[min(74vw,56vh,26rem)] [@media(max-height:500px)]:w-[min(74vw,42vh)]"
-            @settled="onSettled"
-          />
+          Quitter
         </button>
+      </header>
 
-        <p
-          class="min-h-6 max-w-[18rem] text-center text-xs text-primaire/80 sm:text-sm"
-        >
-          {{ hint }}
-        </p>
-      </div>
-    </main>
+      <!-- Zone de jeu : cartes optionnelles + roue -->
+      <main class="flex flex-1 items-center justify-center gap-8 px-4 py-4">
+        <PlayWheelActions
+          :active="action"
+          :disabled="cardsLocked"
+          @choose="chooseAction"
+        />
 
-    <!-- Overlay de transition plein écran (tap to dismiss) -->
-    <Transition name="overlay">
-      <PlayTransitionOverlay
-        v-if="overlayMessage"
-        :message="overlayMessage"
-        @dismiss="dismissOverlay"
-      />
-    </Transition>
+        <div class="flex flex-col items-center gap-4">
+          <button
+            type="button"
+            :disabled="phase !== 'ready'"
+            class="rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cta disabled:cursor-default"
+            :class="phase === 'ready' ? 'cursor-pointer hover:scale-[1.02]' : ''"
+            :aria-label="hint"
+            @click="onWheelClick"
+          >
+            <PlayGameWheel
+              ref="wheel"
+              :segments="segments"
+              :mode="mode"
+              class="w-72"
+              @settled="onSettled"
+            />
+          </button>
 
-    <!-- Pied : tour courant + ordre des joueurs -->
-    <footer
-      v-if="gameStarted"
-      class="flex flex-col items-start gap-3 px-4 pb-4 sm:flex-row sm:items-end sm:justify-between sm:gap-4 sm:px-6 lg:pb-6"
-    >
-      <PlayTurnBanner :player="currentPlayer" />
-    </footer>
+          <p
+            class="min-h-6 max-w-[18rem] text-center text-sm text-primaire/80"
+          >
+            {{ hint }}
+          </p>
+        </div>
+      </main>
+
+      <!-- Pied : tour courant -->
+      <footer class="flex items-end justify-between gap-4 px-6 pb-4">
+        <PlayTurnBanner :player="currentPlayer" />
+      </footer>
+    </div>
   </div>
+
+  <!-- Overlay de transition plein écran (tap to dismiss) -->
+  <Transition name="overlay">
+    <PlayTransitionOverlay
+      v-if="overlayMessage"
+      :message="overlayMessage"
+      @dismiss="dismissOverlay"
+    />
+  </Transition>
 </template>
 
 <style scoped>

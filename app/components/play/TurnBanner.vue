@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex items-center gap-3 sm:gap-4">
+  <div class="flex items-center gap-4">
     <img
       src="/images/assets/grenouille.png"
       alt=""
@@ -15,7 +15,7 @@ defineProps<{
     />
     <p
       v-if="player"
-      class="text-2xl text-primaire lg:text-5xl z-10 absolute bottom-3 right-5"
+      class="text-2xl text-primaire z-10 absolute bottom-3 right-5"
     >
       <span class="flex items-end justify-end flex-col flex-wrap">
         <span class="text-lg" style="font-family: Georgia, serif"
