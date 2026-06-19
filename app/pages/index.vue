@@ -326,28 +326,34 @@
         <!-- 3 Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
           <!-- Card 1 -->
-          <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform hover:-translate-y-2 border border-white/5 reveal">
-            <Icon name="ph:stack" class="w-8 h-8 text-[#E7D6B9] mb-6" />
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.vis1_title') }}</h3>
-            <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
-              {{ $t('home.vis1_desc') }}
-            </p>
+          <div class="reveal h-full">
+            <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform duration-300 ease-out hover:-translate-y-2 border border-white/5 h-full">
+              <Icon name="ph:stack" class="w-8 h-8 text-[#E7D6B9] mb-6" />
+              <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.vis1_title') }}</h3>
+              <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
+                {{ $t('home.vis1_desc') }}
+              </p>
+            </div>
           </div>
           <!-- Card 2 -->
-          <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform hover:-translate-y-2 border border-white/5 reveal reveal-delay-100">
-            <Icon name="ph:map-pin" class="w-8 h-8 text-[#E7D6B9] mb-6" />
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.vis2_title') }}</h3>
-            <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
-              {{ $t('home.vis2_desc') }}
-            </p>
+          <div class="reveal reveal-delay-100 h-full">
+            <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform duration-300 ease-out hover:-translate-y-2 border border-white/5 h-full">
+              <Icon name="ph:map-pin" class="w-8 h-8 text-[#E7D6B9] mb-6" />
+              <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.vis2_title') }}</h3>
+              <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
+                {{ $t('home.vis2_desc') }}
+              </p>
+            </div>
           </div>
           <!-- Card 3 -->
-          <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform hover:-translate-y-2 border border-white/5 reveal reveal-delay-200">
-            <Icon name="ph:user" class="w-8 h-8 text-[#E7D6B9] mb-6" />
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.vis3_title') }}</h3>
-            <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
-              {{ $t('home.vis3_desc') }}
-            </p>
+          <div class="reveal reveal-delay-200 h-full">
+            <div class="bg-[#2E150D] rounded-[32px] p-10 flex flex-col items-center text-center shadow-2xl transition-transform duration-300 ease-out hover:-translate-y-2 border border-white/5 h-full">
+              <Icon name="ph:user" class="w-8 h-8 text-[#E7D6B9] mb-6" />
+              <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.vis3_title') }}</h3>
+              <p class="text-[#F3E7D3]/60 text-sm leading-relaxed">
+                {{ $t('home.vis3_desc') }}
+              </p>
+            </div>
           </div>
         </div>
 
@@ -424,7 +430,7 @@
           </NuxtLink>
 
           <!-- Bouton Découvrir -->
-          <NuxtLink :to="localePath('/precommander')" class="bg-transparent border border-[#F3E7D3] text-[#F3E7D3] px-8 py-4 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-[#F3E7D3] hover:text-[#2E150D] transition-colors shadow-lg">
+          <NuxtLink :to="localePath('/precommander')" class="bg-[#F3E7D3] border border-[#F3E7D3] text-[#2E150D] px-8 py-4 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-[#F3E7D3] hover:text-[#2E150D] transition-colors shadow-lg">
             {{ $t('home.sec5_btn_deluxe') }}
           </NuxtLink>
         </div>
