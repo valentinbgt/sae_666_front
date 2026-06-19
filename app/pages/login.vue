@@ -293,7 +293,7 @@ onUnmounted(() => panelObserver?.disconnect());
           <div class="flex items-center gap-3 py-1">
             <div class="flex-1 h-px" :class="'bg-primaire/20'" />
             <span class="text-xs font-semibold tracking-widest text-primaire/40"
-              >OU VIA CANAL SÉCURISÉ</span
+              >OU VIA FOURNISSEUR</span
             >
             <div class="flex-1 h-px" :class="'bg-primaire/20'" />
           </div>
@@ -412,15 +412,29 @@ onUnmounted(() => panelObserver?.disconnect());
             </p>
           </div>
 
-          <label class="flex items-start gap-2 cursor-pointer">
+          <label class="flex items-start gap-2.5 cursor-pointer group">
             <input
               v-model="regAccept"
               type="checkbox"
-              class="mt-0.5 accent-cta"
+              class="peer sr-only"
             />
+            <span
+              class="mt-0.5 shrink-0 w-5 h-5 rounded-md border-2 border-secondaire/30 bg-transparent grid place-items-center transition-all duration-200 group-hover:border-cta/60 peer-checked:bg-cta peer-checked:border-cta peer-checked:[&>svg]:scale-100 peer-focus-visible:ring-2 peer-focus-visible:ring-cta/40 peer-focus-visible:ring-offset-0"
+            >
+              <svg
+                class="w-3 h-3 text-white scale-0 transition-transform duration-200"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3.5 8.5l3 3 6-7" />
+              </svg>
+            </span>
             <span class="text-xs text-secondaire/70 leading-snug">
-              J'accepte le Code de Conduite Tactique et j'autorise Crooak à
-              gérer mes données de jeu.
+              J'accepte les CGU et j'autorise Crooak à traiter mes données.
             </span>
           </label>
           <p v-if="regErrors.accept" class="text-alerte text-xs">
@@ -442,7 +456,7 @@ onUnmounted(() => panelObserver?.disconnect());
             <div class="flex-1 h-px bg-secondaire/20" />
             <span
               class="text-xs font-semibold tracking-widest text-secondaire/40"
-              >OU VIA CANAL SÉCURISÉ</span
+              >OU VIA FOURNISSEUR</span
             >
             <div class="flex-1 h-px bg-secondaire/20" />
           </div>
