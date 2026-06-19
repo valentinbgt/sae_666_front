@@ -123,10 +123,13 @@ onUnmounted(() => panelObserver?.disconnect());
         isDark ? 'bg-secondaire text-primaire' : 'bg-primaire text-secondaire'
       "
     >
-      <!-- Bouton retour -->
+      <!-- Bouton retour : toujours vers l'accueil (page publique). On n'utilise
+           PAS `redirect` ici : c'est la destination *post-connexion*, souvent une
+           page protégée qui renverrait aussitôt vers /login si l'utilisateur
+           n'est pas connecté → boucle infinie. L'accueil garantit une sortie. -->
       <div class="px-6 pt-5">
         <NuxtLink
-          :to="redirectTo !== '/' ? redirectTo : '/'"
+          to="/"
           class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-widest uppercase transition-colors"
           :class="
             isDark
