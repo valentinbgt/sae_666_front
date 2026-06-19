@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Game, WheelSegment } from "~/types/play";
+import type { Game, WheelMode, WheelSegment } from "~/types/play";
 
 const props = defineProps<{ game: Game }>();
 const emit = defineEmits<{ quit: [] }>();
@@ -115,25 +115,36 @@ function dismissOverlay() {
   if (wasDone) handleEndTurn();
 }
 
+/** Message « X échange avec Y » (OVNI), partagé par ses deux déclencheurs. */
+function swapMessage(): OverlaySegment[] {
+  return [
+    { text: currentPlayer.value?.name ?? "?", color: currentPlayer.value?.color },
+    { text: " échange avec " },
+    {
+      text: selectedPlayer.value?.name ?? "?",
+      color: selectedPlayer.value?.color,
+    },
+  ];
+}
+
+/**
+ * Choix d'une carte. Cas particulier OVNI à 2 joueurs : un seul autre joueur,
+ * donc pas de pré-rotation (la roue ne change pas). On annonce tout de même
+ * l'échange en plein écran pour que le changement soit clair pour le joueur.
+ */
+function onChooseAction(a: WheelMode) {
+  chooseAction(a);
+  if (a === "select" && action.value === "select" && selectedPlayer.value) {
+    showOverlay(swapMessage(), selectedPlayer.value?.color);
+  }
+}
+
 function onSettled(segment: WheelSegment) {
   const prevMode = mode.value;
   settle(segment);
 
   if (prevMode === "select") {
-    showOverlay(
-      [
-        {
-          text: currentPlayer.value?.name ?? "?",
-          color: currentPlayer.value?.color,
-        },
-        { text: " échange avec " },
-        {
-          text: selectedPlayer.value?.name ?? "?",
-          color: selectedPlayer.value?.color,
-        },
-      ],
-      selectedPlayer.value?.color,
-    );
+    showOverlay(swapMessage(), selectedPlayer.value?.color);
   } else if (prevMode === "terrain") {
     showOverlay(
       [{ text: `Tu peux déplacer ${cases(segment.value)} tuiles` }],
@@ -257,7 +268,7 @@ const hint = computed(() => {
         <PlayWheelActions
           :active="action"
           :disabled="cardsLocked"
-          @choose="chooseAction"
+          @choose="onChooseAction"
         />
 
         <div class="flex flex-col items-center gap-4">

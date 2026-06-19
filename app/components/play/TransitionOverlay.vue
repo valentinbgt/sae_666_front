@@ -21,7 +21,7 @@ const { stageStyle } = useStageScale();
     <div class="flex flex-col items-center justify-evenly" :style="stageStyle">
       <!-- Message retourné (joueur en face) -->
       <div class="flex rotate-180 flex-col items-center gap-3 px-6 text-center">
-        <p class="text-6xl text-primaire" style="font-family: Georgia, serif">
+        <p class="text-5xl text-primaire" style="font-family: Georgia, serif">
           <span
             v-for="(part, i) in message"
             :key="i"
@@ -29,14 +29,14 @@ const { stageStyle } = useStageScale();
             >{{ part.text }}</span
           >
         </p>
-        <p class="mt-4 text-2xl uppercase tracking-widest text-primaire/40">
+        <p class="mt-4 text-lg uppercase tracking-widest text-primaire/40">
           Appuie pour continuer
         </p>
       </div>
 
       <!-- Message normal (joueur face à l'écran) -->
       <div class="flex flex-col items-center gap-3 px-6 text-center">
-        <p class="text-6xl text-primaire" style="font-family: Georgia, serif">
+        <p class="text-5xl text-primaire" style="font-family: Georgia, serif">
           <span
             v-for="(part, i) in message"
             :key="i"
@@ -44,7 +44,7 @@ const { stageStyle } = useStageScale();
             >{{ part.text }}</span
           >
         </p>
-        <p class="mt-4 text-2xl uppercase tracking-widest text-primaire/40">
+        <p class="mt-4 text-lg uppercase tracking-widest text-primaire/40">
           Appuie pour continuer
         </p>
       </div>
