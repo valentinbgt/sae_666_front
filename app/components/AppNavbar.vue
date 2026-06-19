@@ -228,7 +228,7 @@
   border-radius: 50%;
   box-shadow: 0 0 4px 1px var(--color);
   pointer-events: none;
-  z-index: 20;
+  z-index: 5;
   opacity: 0;
   animation: sparkle-twinkle var(--dur) ease-in-out var(--delay) infinite;
 }
@@ -247,21 +247,43 @@ const switchLocalePath = useSwitchLocalePath();
 const localePath = useLocalePath();
 const isMenuOpen = ref(false);
 
-const rnd = (min, max) => (Math.random() * (max - min) + min).toFixed(1);
+const rnd = (min, max) => parseFloat((Math.random() * (max - min) + min).toFixed(1));
 
-const makeSparkle = (delayOverride) => ({
-  top: `${rnd(-12, 112)}%`,
-  left: `${rnd(-12, 112)}%`,
-  size: `${rnd(2, 4)}px`,
-  dur: `${(Math.random() * 0.5 + 0.5).toFixed(2)}s`,
-  delay: delayOverride ?? `${(Math.random() * 2).toFixed(2)}s`,
-});
+const MIN_DIST = 22;
 
-const sparkles = ref(Array.from({ length: 8 }, (_, i) => makeSparkle((i * 0.25).toFixed(2) + 's')));
+const makeSparkle = (delayOverride, existing = []) => {
+  let top, left, attempts = 0;
+  do {
+    top = rnd(-12, 112);
+    left = rnd(-12, 112);
+    attempts++;
+    const tooClose = existing.some(sp => {
+      if (!sp) return false;
+      const dt = parseFloat(sp.top) - top;
+      const dl = parseFloat(sp.left) - left;
+      return Math.sqrt(dt * dt + dl * dl) < MIN_DIST;
+    });
+    if (!tooClose) break;
+  } while (attempts < 20);
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    size: `${rnd(2, 4)}px`,
+    dur: `${(Math.random() * 0.5 + 0.5).toFixed(2)}s`,
+    delay: delayOverride ?? `${(Math.random() * 2).toFixed(2)}s`,
+  };
+};
+
+const initialSparkles = [];
+for (let i = 0; i < 8; i++) {
+  initialSparkles.push(makeSparkle((i * 0.25).toFixed(2) + 's', initialSparkles));
+}
+const sparkles = ref(initialSparkles);
 
 const reposition = async (i) => {
   sparkles.value[i] = null;
   await nextTick();
-  sparkles.value[i] = makeSparkle('0s');
+  sparkles.value[i] = makeSparkle('0s', sparkles.value.filter((_, idx) => idx !== i));
 };
 </script>
