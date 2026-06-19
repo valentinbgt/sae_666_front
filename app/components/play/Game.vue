@@ -105,6 +105,10 @@ function cases(n: number | undefined) {
   return n === 1 ? "1 case" : `${n ?? "?"} cases`;
 }
 
+function tiles(n: number | undefined) {
+  return n === 1 ? "1 tuile" : `${n ?? "?"} tuiles`;
+}
+
 function showOverlay(segments: OverlaySegment[], dotColor?: string) {
   overlayMessage.value = segments;
 }
@@ -147,7 +151,13 @@ function onSettled(segment: WheelSegment) {
     showOverlay(swapMessage(), selectedPlayer.value?.color);
   } else if (prevMode === "terrain") {
     showOverlay(
-      [{ text: `Tu peux déplacer ${cases(segment.value)} tuiles` }],
+      [
+        {
+          text: currentPlayer.value?.name ?? "?",
+          color: currentPlayer.value?.color,
+        },
+        { text: `, retire ${tiles(segment.value)} du terrain` },
+      ],
       currentPlayer.value?.color,
     );
   } else {
@@ -181,11 +191,11 @@ const hint = computed(() => {
   // phase 'ready' : on attend un clic sur la roue.
   if (mode.value === "select") return "Lance la roue pour désigner un joueur";
   if (mode.value === "terrain")
-    return "Lance la roue pour définir le nombre de terrains à déplacer";
+    return "Lance la roue pour définir le nombre de tuiles à retirer du terrain";
   if (selectedPlayer.value)
     return `Échange de place avec ${selectedPlayer.value.name} et lance la roue pour avancer`;
   if (terrainResult.value)
-    return `Déplace ${terrainResult.value.value} tuile${(terrainResult.value?.value ?? 0) > 1 ? "s" : ""} et lance la roue pour avancer`;
+    return `Retire ${tiles(terrainResult.value.value)} du terrain et lance la roue pour avancer`;
   if (mode.value === "boost")
     return "La roue est boostée, tu peux la lancer pour avancer";
   return "Lance la roue pour avancer";

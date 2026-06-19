@@ -20,7 +20,7 @@ const boost: Action = {
 // OVNI (échange) et Terrain restent toujours côte à côte.
 const pair: Action[] = [
   { key: "select", label: "OVNI", image: "/images/assets/ovni.png" },
-  { key: "terrain", label: "Terrain", image: "/images/assets/terrain.png" },
+  { key: "terrain", label: "Bombe", image: "/images/assets/bomb.png" },
 ];
 
 // Une carte est sélectionnée uniquement si `active` correspond à une carte

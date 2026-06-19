@@ -143,7 +143,7 @@ defineExpose({ spin, spinning })
           <image
             v-for="(sl, i) in slices"
             :key="`img${i}`"
-            href="/images/assets/terrain.png"
+            href="/images/assets/bomb.png"
             :x="sl.lx + 2"
             :y="sl.ly - LOGO / 2"
             :width="LOGO"
