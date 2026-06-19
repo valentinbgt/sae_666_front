@@ -227,19 +227,7 @@
           <!-- Item 1 -->
           <div class="flex flex-col border-l-2 border-[#BD652E] pl-8 relative h-full reveal">
             <div class="flex justify-between items-start mb-6">
-              <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">01</span>
-                <img src="/images/assets/grenouille.png" alt="Grenouille" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
-            </div>
-            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act1_title') }}</h3>
-            <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
-              {{ $t('home.act1_desc') }}
-            </p>
-          </div>
-
-          <!-- Item 2 -->
-          <div class="flex flex-col border-l-2 border-[#BD652E] pl-8 relative h-full reveal reveal-delay-100">
-            <div class="flex justify-between items-start mb-6">
-              <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">02</span>
+              <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">1</span>
               
               <!-- Carte stylisée -->
                 <div class="relative w-16 h-24 -mt-2 bg-[#BD652E] rounded-xl p-[1.5px] shadow-[0_15px_30px_rgba(0,0,0,0.5)] transform rotate-6 hover:-translate-y-4 hover:rotate-12 hover:scale-110 transition-all duration-300 z-10 border border-white/40 group cursor-pointer">
@@ -249,31 +237,43 @@
                     <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 pointer-events-none"></div>
                 </div>
               </div>
-
+  
+            </div>
+            <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act1_title') }}</h3>
+            <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
+              {{ $t('home.act1_desc') }}
+            </p>
+          </div>
+          
+          <!-- Item 2 -->
+          <div class="flex flex-col border-l-2 border-[#BD652E] pl-8 relative h-full reveal reveal-delay-100">
+            <div class="flex justify-between items-start mb-6">
+              <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">2</span>
+              <img src="/images/assets/pierre_section3.png" alt="Objets" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
             </div>
             <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act2_title') }}</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
               {{ $t('home.act2_desc') }}
             </p>
           </div>
-
+          
           <!-- Item 3 -->
           <div class="flex flex-col border-l-2 border-[#BD652E] pl-8 relative h-full reveal">
             <div class="flex justify-between items-start mb-6">
-              <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">03</span>
-                <img src="/images/assets/pierre_section3.png" alt="Objets" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
+              <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">3</span>
+              <img src="/images/assets/coffre_section3.png" alt="Coffre" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
             </div>
             <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act3_title') }}</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
               {{ $t('home.act3_desc') }}
             </p>
           </div>
-
+          
           <!-- Item 4 -->
           <div class="flex flex-col border-l-2 border-[#BD652E] pl-8 relative h-full reveal reveal-delay-100">
             <div class="flex justify-between items-start mb-6">
-              <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">04</span>
-                <img src="/images/assets/coffre_section3.png" alt="Coffre" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
+              <span class="text-[#BD652E] text-7xl font-bold leading-none" style="font-family: Georgia, serif;">4</span>
+                <img src="/images/assets/grenouille.png" alt="Grenouille" class="h-24 object-contain -mt-4 opacity-90 hover:scale-110 transition-transform duration-300" />
             </div>
             <h3 class="text-[#F3E7D3] text-sm font-bold tracking-widest uppercase mb-4">{{ $t('home.act4_title') }}</h3>
             <p class="text-[#F3E7D3]/70 text-sm leading-relaxed max-w-sm">
