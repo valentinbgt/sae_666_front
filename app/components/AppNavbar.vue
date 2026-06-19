@@ -94,10 +94,10 @@
         {{ $t("nav.preorder") }}
       </NuxtLink>
       <NuxtLink
-        :to="localePath('/login')"
+        :to="localePath('/play')"
         class="btn-filled inline-flex items-center px-5 py-2 rounded-full text-white text-xs font-bold tracking-widest uppercase"
       >
-        {{ $t("nav.app") }}
+        {{ $t("nav.play") }}
       </NuxtLink>
     </div>
 
