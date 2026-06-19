@@ -13,6 +13,8 @@ const C = SIZE / 2
 const R = 92
 const LABEL_R = R * 0.64
 const SPIN_MS = 4200
+// Taille du logo affiché après le chiffre en mode Terrain (coord. viewBox).
+const LOGO = 18
 
 const rotation = ref(0)
 const spinning = ref(false)
@@ -44,7 +46,10 @@ function clip(label: string): string {
 }
 
 const fontSize = computed(() => {
-  const maxFont = props.segments.length > 3 ? 10 : 22
+  // OVNI : pseudos variables, on garde une police modérée. Hors OVNI : ce sont
+  // des chiffres courts, on les agrandit pour mieux les lire.
+  const maxFont =
+    props.mode === 'select' ? (props.segments.length > 3 ? 10 : 22) : 18
   // On dimensionne sur le libellé le plus long (tronqué) pour rester uniforme.
   const longest = props.segments.reduce(
     (m, s) => Math.max(m, Math.min(s.label.length, MAX_CHARS)),
@@ -122,7 +127,7 @@ defineExpose({ spin, spinning })
         <text
           v-for="(sl, i) in slices"
           :key="`t${i}`"
-          :x="sl.lx"
+          :x="mode === 'terrain' ? sl.lx - LOGO / 2 - 1 : sl.lx"
           :y="sl.ly"
           :transform="`rotate(${sl.rot} ${sl.lx} ${sl.ly})`"
           text-anchor="middle"
@@ -132,6 +137,21 @@ defineExpose({ spin, spinning })
           :font-size="fontSize"
           :font-weight="mode === 'select' ? 600 : 400"
         >{{ clip(sl.seg.label) }}</text>
+
+        <!-- Terrain : logo du bouton, en plus petit, juste après le chiffre. -->
+        <template v-if="mode === 'terrain'">
+          <image
+            v-for="(sl, i) in slices"
+            :key="`img${i}`"
+            href="/images/assets/terrain.png"
+            :x="sl.lx + 2"
+            :y="sl.ly - LOGO / 2"
+            :width="LOGO"
+            :height="LOGO"
+            :transform="`rotate(${sl.rot} ${sl.lx} ${sl.ly})`"
+            preserveAspectRatio="xMidYMid meet"
+          />
+        </template>
       </g>
 
       <!-- Bordure fixe -->
