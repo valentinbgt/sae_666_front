@@ -376,6 +376,7 @@
 
           <!-- Liste des boutiques -->
           <div class="flex flex-col gap-4">
+            <!-- Boutique 1 -->
             <div class="bg-[#2E150D] border border-[#BD652E]/30 rounded-2xl p-6 flex items-start gap-4 hover:border-[#BD652E] transition-colors cursor-pointer group shadow-sm">
               <div class="bg-[#BD652E] text-white w-12 h-12 shrink-0 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Icon name="ph:map-pin-fill" class="w-6 h-6" />
@@ -383,6 +384,17 @@
               <div>
                 <h4 class="text-[#F3E7D3] font-bold text-lg mb-1">{{ $t('preorder.map_shop_name') }}</h4>
                 <p class="text-[#F3E7D3]/60 text-sm">{{ $t('preorder.map_shop_address') }}</p>
+              </div>
+            </div>
+
+            <!-- Boutique 2 -->
+            <div class="bg-[#2E150D] border border-[#BD652E]/30 rounded-2xl p-6 flex items-start gap-4 hover:border-[#BD652E] transition-colors cursor-pointer group shadow-sm">
+              <div class="bg-[#BD652E] text-white w-12 h-12 shrink-0 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Icon name="ph:map-pin-fill" class="w-6 h-6" />
+              </div>
+              <div>
+                <h4 class="text-[#F3E7D3] font-bold text-lg mb-1">{{ $t('preorder.map_shop2_name') }}</h4>
+                <p class="text-[#F3E7D3]/60 text-sm">{{ $t('preorder.map_shop2_address') }}</p>
               </div>
             </div>
           </div>
