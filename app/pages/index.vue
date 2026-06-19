@@ -292,9 +292,9 @@
            de 30 % en haut et en bas pour avoir de la marge de translation, le
            débordement est rogné par l'overflow-hidden du wrapper. -->
       <div
-        class="parallax absolute inset-y-[-30%] inset-x-0 z-0 opacity-25 pointer-events-none bg-cover bg-top"
+        class="parallax absolute inset-y-[-30%] inset-x-0 z-0 opacity-25 pointer-events-none bg-contain bg-repeat-y bg-top"
         data-parallax="-0.6"
-        style="background-image: url('/images/assets/chemin_4_5.webp');"
+        style="background-image: url('/images/assets/chemin_4_5_v2.webp');"
       ></div>
 
       <!-- SECTION 4 : LA VISION -->
