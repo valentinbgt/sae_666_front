@@ -217,7 +217,7 @@
 <style scoped>
 .sparkle {
   --size: 4px;
-  --color: #FFD700;
+  --color: #F7E7C6;
   --dur: 1.8s;
   --delay: 0s;
 
@@ -247,25 +247,47 @@ const switchLocalePath = useSwitchLocalePath();
 const localePath = useLocalePath();
 const isMenuOpen = ref(false);
 
+/* --- Étincelles autour du bouton "Jouer" ---
+   Halo de sparks qui scintillent autour du bouton : positions vraiment
+   aléatoires, jamais devant le texte (anneau autour du bouton), espacées
+   les unes des autres, et un seul scintillement par apparition. */
+const COUNT = 8;
+const HALO = 16;     // débordement du halo au-delà des bords du bouton (%)
+const GAP = 4;       // marge libre gardée autour du bouton/texte (%)
+const MIN_DIST = 14; // espacement minimal entre deux sparks (%)
+
+const OUTER_MIN = -HALO;
+const OUTER_MAX = 100 + HALO;
+const INNER_MIN = -GAP;
+const INNER_MAX = 100 + GAP;
+
 const rnd = (min, max) => parseFloat((Math.random() * (max - min) + min).toFixed(1));
 
-const MIN_DIST = 22;
+// Sur le bouton (zone du texte + marge) → on n'y place jamais de spark
+const overButton = (top, left) =>
+  top > INNER_MIN && top < INNER_MAX && left > INNER_MIN && left < INNER_MAX;
 
-const makeSparkle = (delayOverride, existing = []) => {
-  let top, left, attempts = 0;
-  do {
-    top = rnd(-12, 112);
-    left = rnd(-12, 112);
-    attempts++;
-    const tooClose = existing.some(sp => {
-      if (!sp) return false;
-      const dt = parseFloat(sp.top) - top;
-      const dl = parseFloat(sp.left) - left;
-      return Math.sqrt(dt * dt + dl * dl) < MIN_DIST;
-    });
-    if (!tooClose) break;
-  } while (attempts < 20);
+// Assez loin de tous les sparks déjà placés
+const spaced = (top, left, others) =>
+  others.every((sp) =>
+    !sp || Math.hypot(parseFloat(sp.top) - top, parseFloat(sp.left) - left) >= MIN_DIST
+  );
 
+// Position aléatoire dans le halo, hors du bouton et espacée si possible
+const pickPos = (others) => {
+  let fallback = { top: OUTER_MIN, left: rnd(OUTER_MIN, OUTER_MAX) };
+  for (let a = 0; a < 30; a++) {
+    const top = rnd(OUTER_MIN, OUTER_MAX);
+    const left = rnd(OUTER_MIN, OUTER_MAX);
+    if (overButton(top, left)) continue;                 // jamais devant le texte
+    fallback = { top, left };
+    if (spaced(top, left, others)) return { top, left }; // + petit gap entre sparks
+  }
+  return fallback;
+};
+
+const makeSparkle = (delayOverride, others = []) => {
+  const { top, left } = pickPos(others);
   return {
     top: `${top}%`,
     left: `${left}%`,
@@ -275,15 +297,17 @@ const makeSparkle = (delayOverride, existing = []) => {
   };
 };
 
-const initialSparkles = [];
-for (let i = 0; i < 8; i++) {
-  initialSparkles.push(makeSparkle((i * 0.25).toFixed(2) + 's', initialSparkles));
+const initial = [];
+for (let i = 0; i < COUNT; i++) {
+  initial.push(makeSparkle(`${(i * 0.25).toFixed(2)}s`, initial));
 }
-const sparkles = ref(initialSparkles);
+const sparkles = ref(initial);
 
+// Fin de cycle : on démonte le spark (invisible à opacity 0) puis on le
+// replace au tick suivant — évite tout "téléport" visible pendant l'anim.
 const reposition = async (i) => {
   sparkles.value[i] = null;
   await nextTick();
-  sparkles.value[i] = makeSparkle('0s', sparkles.value.filter((_, idx) => idx !== i));
+  sparkles.value[i] = makeSparkle("0s", sparkles.value.filter((_, idx) => idx !== i));
 };
 </script>
