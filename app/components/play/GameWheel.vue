@@ -32,11 +32,15 @@ const slices = computed(() => {
     const [x0, y0] = pt(R, a0)
     const [x1, y1] = pt(R, a1)
     const large = a1 - a0 > 180 ? 1 : 0
-    const [lx, ly] = pt(LABEL_R, a0 + seg / 2)
+    const mid = a0 + seg / 2
+    const [lx, ly] = pt(LABEL_R, mid)
     return {
       d: `M ${C} ${C} L ${x0} ${y0} A ${R} ${R} 0 ${large} 1 ${x1} ${y1} Z`,
       lx,
       ly,
+      // Orientation figée sur la roue : le libellé est droit quand son segment
+      // passe devant le pointeur (gauche, 270°). rot = mid - 270.
+      rot: mid - 270,
       seg: s,
     }
   })
@@ -86,6 +90,7 @@ defineExpose({ spin, spinning })
           :key="`t${i}`"
           :x="sl.lx"
           :y="sl.ly"
+          :transform="`rotate(${sl.rot} ${sl.lx} ${sl.ly})`"
           text-anchor="middle"
           dominant-baseline="central"
           fill="#F7E7C6"
