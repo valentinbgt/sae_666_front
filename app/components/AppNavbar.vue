@@ -157,13 +157,29 @@
         >
           {{ $t("nav.preorder") }}
         </NuxtLink>
-        <NuxtLink
-          :to="localePath('/play')"
-          @click="isMenuOpen = false"
-          class="btn-filled px-8 py-4 rounded-full text-white text-sm font-bold tracking-widest uppercase text-center w-64"
-        >
-          {{ $t("nav.play") }}
-        </NuxtLink>
+        <div class="play-btn-wrapper relative inline-block">
+          <template v-for="(sp, i) in sparkles" :key="i">
+            <span
+              v-if="sp"
+              class="sparkle"
+              :style="{
+                top: sp.top,
+                left: sp.left,
+                '--size': sp.size,
+                '--dur': sp.dur,
+                '--delay': sp.delay,
+              }"
+              @animationiteration="reposition(i)"
+            ></span>
+          </template>
+          <NuxtLink
+            :to="localePath('/play')"
+            @click="isMenuOpen = false"
+            class="btn-filled px-8 py-4 rounded-full text-white text-sm font-bold tracking-widest uppercase text-center w-64 relative z-10"
+          >
+            {{ $t("nav.play") }}
+          </NuxtLink>
+        </div>
 
         <!-- Language Selector for mobile -->
         <div class="flex gap-6 mt-6">
