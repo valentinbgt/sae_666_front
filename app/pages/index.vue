@@ -389,7 +389,7 @@
         </div>
 
         <!-- Carte droite -->
-        <div class="flex-1 w-full h-[400px] md:h-[500px] rounded-[32px] overflow-hidden shadow-2xl border-4 border-[#2E150D] relative bg-[#2E150D] reveal reveal-delay-200">
+        <div class="shrink-0 md:flex-1 w-full h-[550px] md:h-[500px] rounded-[32px] overflow-hidden shadow-2xl border-4 border-[#2E150D] relative bg-[#2E150D] reveal reveal-delay-200">
           <iframe 
             width="100%" 
             height="100%" 
