@@ -268,11 +268,11 @@ const hint = computed(() => {
         <img
           src="/images/logo_crooak.png"
           alt="CROOAK"
-          class="absolute left-5 top-4 h-12 w-auto"
+          class="absolute left-5 top-4 h-16 w-auto"
         />
         <button
           type="button"
-          class="absolute right-8 top-7 w-20 text-right text-xs font-semibold uppercase tracking-widest text-primaire/50 transition hover:text-primaire"
+          class="absolute right-8 top-7 w-20 text-right text-base font-semibold uppercase tracking-widest text-primaire/50 transition hover:text-primaire"
           @click="handleQuit"
         >
           Quitter
@@ -306,7 +306,7 @@ const hint = computed(() => {
           </button>
 
           <p
-            class="min-h-6 max-w-[18rem] text-center text-sm text-primaire/80"
+            class="text-center text-sm w-lg text-primaire/80 absolute bottom-3 left-1/2 -translate-x-1/2"
           >
             {{ hint }}
           </p>

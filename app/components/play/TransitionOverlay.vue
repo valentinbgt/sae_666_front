@@ -15,7 +15,7 @@ const emit = defineEmits<{ dismiss: [] }>();
     <!-- Message retourné (joueur en face) -->
     <div class="flex flex-col items-center gap-3 px-6 text-center sm:gap-5 sm:px-8 rotate-180">
       <p
-        class="text-3xl text-primaire lg:text-5xl [@media(max-height:500px)]:text-2xl"
+        class="text-8xl text-primaire"
         style="font-family: Georgia, serif"
       >
         <span
@@ -25,7 +25,7 @@ const emit = defineEmits<{ dismiss: [] }>();
           >{{ part.text }}</span
         >
       </p>
-      <p class="text-xs uppercase tracking-widest text-primaire/40">
+      <p class="text-3xl mt-4 uppercase tracking-widest text-primaire/40">
         Appuie pour continuer
       </p>
     </div>
@@ -33,7 +33,7 @@ const emit = defineEmits<{ dismiss: [] }>();
     <!-- Message normal (joueur face à l'écran) -->
     <div class="flex flex-col items-center gap-3 px-6 text-center sm:gap-5 sm:px-8">
       <p
-        class="text-3xl text-primaire lg:text-5xl [@media(max-height:500px)]:text-2xl"
+        class="text-8xl text-primaire"
         style="font-family: Georgia, serif"
       >
         <span
@@ -43,7 +43,7 @@ const emit = defineEmits<{ dismiss: [] }>();
           >{{ part.text }}</span
         >
       </p>
-      <p class="text-xs uppercase tracking-widest text-primaire/40">
+      <p class="text-3xl mt-4 uppercase tracking-widest text-primaire/40">
         Appuie pour continuer
       </p>
     </div>

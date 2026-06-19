@@ -39,7 +39,7 @@ const hasCardSelected = computed(() =>
     <button
       type="button"
       :disabled="disabled"
-      class="flex h-48 w-auto flex-col items-center justify-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40"
+      class="flex h-48 w-auto flex-col items-center justify-center px-5 py-3 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40"
       :class="
         !hasCardSelected
           ? 'opacity-100 text-primaire '
@@ -69,7 +69,7 @@ const hasCardSelected = computed(() =>
         :key="a.key"
         type="button"
         :disabled="disabled"
-        class="flex h-48 w-auto flex-col items-center justify-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40"
+        class="flex h-48 w-auto flex-col items-center justify-center px-5 py-3 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40"
         :class="
           !hasCardSelected
             ? 'opacity-100 text-primaire '
