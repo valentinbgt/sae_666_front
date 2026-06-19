@@ -28,6 +28,32 @@ function pt(r: number, deg: number): [number, number] {
 // l'index du résultat sur les segments d'origine (cf. spin()).
 const display = computed(() => [...props.segments, ...props.segments])
 
+// Police adaptative : en mode OVNI (select) les libellés sont des pseudos de
+// longueur variable. On réduit la taille pour qu'ils tiennent dans la roue avec
+// un peu de marge, et on tronque ceux qui restent trop longs.
+const PAD = 8 // marge radiale avec le bord de la roue
+const MIN_FONT = 8
+const CHAR_W = 0.6 // largeur moyenne d'un caractère ≈ CHAR_W × taille de police
+// Longueur radiale exploitable (texte centré à LABEL_R, symétrique).
+const AVAIL = 2 * (R - PAD - LABEL_R)
+// Au-delà de cette longueur (à la police mini), on tronque avec une ellipse.
+const MAX_CHARS = Math.floor(AVAIL / (MIN_FONT * CHAR_W))
+
+function clip(label: string): string {
+  return label.length > MAX_CHARS ? label.slice(0, MAX_CHARS - 1) + '…' : label
+}
+
+const fontSize = computed(() => {
+  const maxFont = props.segments.length > 3 ? 10 : 22
+  // On dimensionne sur le libellé le plus long (tronqué) pour rester uniforme.
+  const longest = props.segments.reduce(
+    (m, s) => Math.max(m, Math.min(s.label.length, MAX_CHARS)),
+    1,
+  )
+  const fit = AVAIL / (longest * CHAR_W)
+  return Math.round(Math.max(MIN_FONT, Math.min(maxFont, fit)))
+})
+
 const slices = computed(() => {
   const n = display.value.length || 1
   const seg = 360 / n
@@ -103,9 +129,9 @@ defineExpose({ spin, spinning })
           dominant-baseline="central"
           fill="#F7E7C6"
           font-family="Georgia, serif"
-          :font-size="segments.length > 3 ? 10 : 22"
+          :font-size="fontSize"
           :font-weight="mode === 'select' ? 600 : 400"
-        >{{ sl.seg.label }}</text>
+        >{{ clip(sl.seg.label) }}</text>
       </g>
 
       <!-- Bordure fixe -->
