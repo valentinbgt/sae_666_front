@@ -22,8 +22,9 @@ body {
 }
 
 .navlink {
+  margin-top: 10px;
   color: #F7E7C6;
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -32,8 +33,8 @@ body {
 }
 .navlink:hover,
 .navlink.router-link-active {
-  color: #BD652E;
-  transform: translateY(-2px);
+  font-weight: bolder;
+  text-decoration: underline;
 }
 
 button, [role="button"] {
