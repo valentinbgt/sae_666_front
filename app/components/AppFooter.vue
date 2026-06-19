@@ -64,22 +64,8 @@ const rgpdAccepted = ref(false)
 
 
       <!-- Right Section -->
-      <div class="flex flex-col items-start md:items-end gap-6 mt-8 md:mt-0">
-        <img src="/images/logo_crooak.png" alt="CROOAK" class="h-16 w-auto" />
-        <div class="flex gap-6 mt-4">
-          <NuxtLink to="#" class="opacity-70 hover:opacity-100 transition-opacity">
-            <Icon name="ph:x-logo" class="w-6 h-6" />
-          </NuxtLink>
-          <NuxtLink to="#" class="opacity-70 hover:opacity-100 transition-opacity">
-            <Icon name="ph:discord-logo" class="w-6 h-6" />
-          </NuxtLink>
-          <NuxtLink to="#" class="opacity-70 hover:opacity-100 transition-opacity">
-            <Icon name="ph:linkedin-logo" class="w-6 h-6" />
-          </NuxtLink>
-          <NuxtLink to="#" class="opacity-70 hover:opacity-100 transition-opacity">
-            <Icon name="ph:instagram-logo" class="w-6 h-6" />
-          </NuxtLink>
-        </div>
+      <div class="w-full md:w-auto flex flex-col items-start md:items-end gap-6 mt-8 md:mt-0">
+        <img src="/images/logo_crooak.png" alt="CROOAK" class="self-center md:self-auto h-16 w-auto" />
       </div>
     </div>
 
