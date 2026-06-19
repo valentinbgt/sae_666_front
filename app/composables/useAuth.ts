@@ -1,11 +1,7 @@
 export function useAuth() {
-  const token = useCookie<string | null>('auth_token', {
-    default: () => null,
-    path: '/',
-    sameSite: 'lax',
-    secure: !import.meta.dev,
-    maxAge: 60 * 60 * 24 * 30,
-  })
+  // Options du cookie centralisées dans useAuthCookie (cf. ce fichier pour le
+  // pourquoi du `secure` calé sur le protocole : sinon connexion KO sur mobile).
+  const token = useAuthCookie()
 
   const isLoggedIn = computed(() => !!token.value)
 

@@ -158,11 +158,11 @@
           {{ $t("nav.preorder") }}
         </NuxtLink>
         <NuxtLink
-          :to="localePath('/login')"
+          :to="localePath('/play')"
           @click="isMenuOpen = false"
           class="btn-filled px-8 py-4 rounded-full text-white text-sm font-bold tracking-widest uppercase text-center w-64"
         >
-          {{ $t("nav.app") }}
+          {{ $t("nav.play") }}
         </NuxtLink>
 
         <!-- Language Selector for mobile -->

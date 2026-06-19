@@ -1,7 +1,7 @@
 export function useApi() {
   const { public: { apiBase } } = useRuntimeConfig()
 
-  const token = useCookie<string | null>('auth_token', { path: '/' })
+  const token = useAuthCookie()
   const route = useRoute()
 
   function headers(): Record<string, string> {
