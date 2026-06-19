@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({ title: "CROOAK – Connexion" });
+definePageMeta({ title: "CROOAK – Connexion", layout: false });
 
 const {
   public: { apiBase },
@@ -110,10 +110,24 @@ const showRegPassword = ref(false);
         <NuxtLink
           :to="redirectTo !== '/' ? redirectTo : '/'"
           class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-widest uppercase transition-colors"
-          :class="isDark ? 'text-primaire/40 hover:text-primaire/80' : 'text-secondaire/40 hover:text-secondaire/80'"
+          :class="
+            isDark
+              ? 'text-primaire/40 hover:text-primaire/80'
+              : 'text-secondaire/40 hover:text-secondaire/80'
+          "
         >
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          <svg
+            class="w-3.5 h-3.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
           Retour
         </NuxtLink>
