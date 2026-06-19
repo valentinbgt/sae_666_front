@@ -23,10 +23,15 @@ function pt(r: number, deg: number): [number, number] {
   return [C + r * Math.sin(rad), C - r * Math.cos(rad)]
 }
 
+// On duplique les segments pour densifier visuellement la roue : chaque
+// libellé apparaît deux fois. La logique de tirage reste juste car on ramène
+// l'index du résultat sur les segments d'origine (cf. spin()).
+const display = computed(() => [...props.segments, ...props.segments])
+
 const slices = computed(() => {
-  const n = props.segments.length || 1
+  const n = display.value.length || 1
   const seg = 360 / n
-  return props.segments.map((s, i) => {
+  return display.value.map((s, i) => {
     const a0 = i * seg
     const a1 = (i + 1) * seg
     const [x0, y0] = pt(R, a0)
@@ -47,8 +52,9 @@ const slices = computed(() => {
 })
 
 async function spin(): Promise<void> {
-  const n = props.segments.length
-  if (spinning.value || n === 0) return
+  const baseN = props.segments.length
+  const n = display.value.length
+  if (spinning.value || baseN === 0) return
   spinning.value = true
   const segAngle = 360 / n
   const target = Math.floor(Math.random() * n)
@@ -63,7 +69,9 @@ async function spin(): Promise<void> {
   rotation.value += 360 * 5 + delta
   await new Promise((r) => setTimeout(r, SPIN_MS))
   spinning.value = false
-  emit('settled', props.segments[target]!, target)
+  // Chaque segment d'origine a deux copies : on ramène l'index sur l'original.
+  const realIndex = target % baseN
+  emit('settled', props.segments[realIndex]!, realIndex)
 }
 
 defineExpose({ spin, spinning })
