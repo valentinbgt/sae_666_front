@@ -15,5 +15,11 @@ export function useMe() {
     return me.value
   }
 
-  return { me, fetchMe }
+  // À appeler à la déconnexion : sans ça le profil reste en cache dans le
+  // useState partagé et /play continue d'afficher « Connecté en tant que X ».
+  function clearMe() {
+    me.value = null
+  }
+
+  return { me, fetchMe, clearMe }
 }

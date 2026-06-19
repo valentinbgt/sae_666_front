@@ -58,6 +58,13 @@ async function newGame() {
         Connecté en tant que
         <strong class="text-primaire">{{ me.username }}</strong>
       </p>
+      <NuxtLink
+        v-if="me"
+        to="/logout"
+        class="text-xs text-primaire/50 underline underline-offset-2 transition hover:text-primaire"
+      >
+        Se déconnecter
+      </NuxtLink>
     </div>
 
     <div class="flex w-full max-w-xs flex-col gap-3">
