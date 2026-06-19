@@ -53,7 +53,7 @@ const rgpdAccepted = ref(false)
                   <path d="M3.5 8.5l3 3 6-7" />
                 </svg>
               </span>
-              <span class="text-xs text-white/70 leading-snug">{{ $t('news.nl_rgpd') }}</span>
+              <span class="text-xs text-white/70 leading-snug" v-html="$t('news.nl_rgpd')" />
             </label>
           </div>
         </form>
@@ -85,7 +85,7 @@ const rgpdAccepted = ref(false)
 
     <!-- Bottom Section -->
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center border-t border-[#F3E7D3]/10 pt-8 gap-6">
-        <div class="flex flex-col md:flex-row items-center justify-between text-[10px] font-bold text-white/50 tracking-widest uppercase gap-4 md:gap-8">
+        <div class="w-full flex flex-col md:flex-row items-center justify-between text-[10px] font-bold text-white/50 tracking-widest uppercase gap-4 md:gap-8">
           <div class="flex items-center gap-2">
             <span>TEAM MMI TROYES-CASTRES</span>
             <span>—</span>

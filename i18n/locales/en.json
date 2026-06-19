@@ -43,7 +43,7 @@
     "nl_loading": "...",
     "nl_success": "Successfully subscribed!",
     "nl_error": "Subscription failed.",
-    "nl_rgpd": "I agree to receive emails and confirm I have read the privacy policy."
+    "nl_rgpd": "I agree to receive emails and confirm I have read the <a href=\"/confidentialite\" target=\"_blank\" class=\"underline hover:opacity-100\">privacy policy</a>."
   },
   "home": {
     "hero_badge": "From 7 to 77 yo — 2 to 4 players",

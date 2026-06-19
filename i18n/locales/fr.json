@@ -43,7 +43,7 @@
     "nl_loading": "...",
     "nl_success": "Inscription réussie !",
     "nl_error": "Erreur lors de l'inscription.",
-    "nl_rgpd": "J'accepte de recevoir des e-mails et je confirme avoir lu la politique de confidentialité."
+    "nl_rgpd": "J'accepte de recevoir des e-mails et je confirme avoir lu la <a href=\"/confidentialite\" target=\"_blank\" class=\"underline hover:opacity-100\">politique de confidentialité</a>."
   },
   "home": {
     "hero_badge": "De 7 à 77 ans — 2 à 4 joueurs",
