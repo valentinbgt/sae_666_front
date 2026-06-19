@@ -39,10 +39,41 @@ const {
 
 const gameStarted = ref(false);
 
+/** Passe en plein écran (best effort) — nécessite un geste utilisateur. */
+function enterFullscreen() {
+  const el = document.documentElement as HTMLElement & {
+    webkitRequestFullscreen?: () => Promise<void>;
+  };
+  if (document.fullscreenElement) return;
+  const request = el.requestFullscreen ?? el.webkitRequestFullscreen;
+  request?.call(el).catch(() => {});
+}
+
+/** Sort du plein écran si on y est (best effort, multi-navigateurs). */
+function exitFullscreen() {
+  const doc = document as Document & {
+    webkitExitFullscreen?: () => Promise<void>;
+    webkitFullscreenElement?: Element | null;
+  };
+  if (!doc.fullscreenElement && !doc.webkitFullscreenElement) return;
+  const exit = doc.exitFullscreen ?? doc.webkitExitFullscreen;
+  exit?.call(doc).catch(() => {});
+}
+
 function pickFirstPlayer(index: number) {
   currentIndex.value = index;
   gameStarted.value = true;
+  enterFullscreen();
 }
+
+function handleQuit() {
+  exitFullscreen();
+  emit("quit");
+}
+
+// Filet de sécurité : quitter le plein écran si le composant est démonté
+// (navigation, fin de partie, etc.) sans passer par le bouton Quitter.
+onUnmounted(exitFullscreen);
 
 const wheel = ref<{ spin: () => Promise<void> } | null>(null);
 
@@ -154,7 +185,7 @@ const hint = computed(() => {
       <button
         type="button"
         class="absolute right-8 top-7 w-16 text-right text-xs font-semibold uppercase tracking-widest text-primaire/50 transition hover:text-primaire sm:w-20"
-        @click="emit('quit')"
+        @click="handleQuit"
       >
         Quitter
       </button>

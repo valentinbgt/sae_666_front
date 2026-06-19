@@ -42,10 +42,10 @@ const hasCardSelected = computed(() =>
       class="flex h-48 w-auto flex-col items-center justify-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40"
       :class="
         !hasCardSelected
-          ? 'opacity-100 text-primaire hover:bg-secondaire'
+          ? 'opacity-100 text-primaire '
           : active === boost.key
             ? 'opacity-100 text-primaire'
-            : 'opacity-50 text-primaire hover:bg-secondaire'
+            : 'opacity-50 text-primaire '
       "
       @click="emit('choose', boost.key)"
     >
@@ -54,7 +54,9 @@ const hasCardSelected = computed(() =>
         :alt="boost.label"
         class="h-32 w-auto select-none object-contain transition"
         :class="
-          active === boost.key ? 'drop-shadow-[0_0_8px_rgba(247,231,198,1)]' : ''
+          active === boost.key
+            ? 'drop-shadow-[0_0_8px_rgba(247,231,198,1)]'
+            : ''
         "
       />
       {{ boost.label }}
@@ -70,10 +72,10 @@ const hasCardSelected = computed(() =>
         class="flex h-48 w-auto flex-col items-center justify-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40"
         :class="
           !hasCardSelected
-            ? 'opacity-100 text-primaire hover:bg-secondaire'
+            ? 'opacity-100 text-primaire '
             : active === a.key
               ? 'opacity-100 text-primaire'
-              : 'opacity-50 text-primaire hover:bg-secondaire'
+              : 'opacity-50 text-primaire '
         "
         @click="emit('choose', a.key)"
       >
