@@ -94,9 +94,31 @@
               {{ loading ? $t('news.nl_loading') : $t('news.nl_btn') }}
             </button>
           </div>
-          <div class="flex items-start gap-3 text-sm text-primaire/80 mt-3 max-w-md">
-            <input type="checkbox" id="rgpd-news" required class="mt-1 w-4 h-4 accent-cta cursor-pointer shrink-0" />
-            <label for="rgpd-news" class="leading-snug cursor-pointer">{{ $t('news.nl_rgpd') }}</label>
+          <div class="mt-3 max-w-md">
+            <label class="flex items-start gap-2.5 cursor-pointer group">
+              <input
+                v-model="rgpdAccepted"
+                type="checkbox"
+                required
+                class="peer sr-only"
+              />
+              <span
+                class="mt-0.5 shrink-0 w-5 h-5 rounded-md border-2 border-primaire/30 bg-transparent grid place-items-center transition-all duration-200 group-hover:border-cta/60 peer-checked:bg-cta peer-checked:border-cta peer-checked:[&>svg]:scale-100 peer-focus-visible:ring-2 peer-focus-visible:ring-cta/40 peer-focus-visible:ring-offset-0"
+              >
+                <svg
+                  class="w-3 h-3 text-white scale-0 transition-transform duration-200"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3.5 8.5l3 3 6-7" />
+                </svg>
+              </span>
+              <span class="text-sm text-primaire/80 leading-snug">{{ $t('news.nl_rgpd') }}</span>
+            </label>
           </div>
         </form>
         <p v-if="success" class="text-validation text-xs mt-2 w-full text-center">{{ $t('news.nl_success') }}</p>
@@ -112,6 +134,7 @@
 definePageMeta({ title: 'CROOAK – Actualités' })
 
 const { email, loading, success, error, subscribe } = useNewsletter()
+const rgpdAccepted = ref(false)
 const { public: { apiBase } } = useRuntimeConfig()
 
 interface Content {
