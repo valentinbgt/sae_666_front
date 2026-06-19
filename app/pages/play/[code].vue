@@ -6,6 +6,8 @@ definePageMeta({ middleware: 'auth' })
 const route = useRoute()
 const code = String(route.params.code)
 
+useHead({ title: `Lobby ${code} - Crooak` })
+
 const game = ref<Game | null>(null)
 const loadError = ref<string | null>(null)
 const busy = ref(false)

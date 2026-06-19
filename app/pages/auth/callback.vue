@@ -1,4 +1,6 @@
 <script setup lang="ts">
+useHead({ title: 'Connexion - Crooak' })
+
 const route = useRoute();
 const { setToken } = useAuth();
 

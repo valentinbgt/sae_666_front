@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 
+useHead({ title: 'Précommander - Crooak' })
+
 const selectedEdition = ref('deluxe') // 'base' or 'deluxe'
 const selectedPayment = ref('card') // 'card' or 'paypal'
 </script>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-//definePageMeta({ middleware: 'auth', title: 'CROOAK – Jouer' })
-definePageMeta({ title: "CROOAK – Jouer" });
+//definePageMeta({ middleware: 'auth' })
+useHead({ title: "Jouer - Crooak" });
 
 const { createGame } = useGame();
 const { me, fetchMe } = useMe();

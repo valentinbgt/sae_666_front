@@ -1,5 +1,6 @@
 <script setup lang="ts">
-definePageMeta({ title: "CROOAK – Connexion", layout: false });
+definePageMeta({ layout: false });
+useHead({ title: "Connexion - Crooak" });
 
 const {
   public: { apiBase },

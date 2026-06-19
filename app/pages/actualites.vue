@@ -131,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({ title: 'CROOAK – Actualités' })
+useHead({ title: 'Actualités - Crooak' })
 
 const { email, loading, success, error, subscribe } = useNewsletter()
 const rgpdAccepted = ref(false)

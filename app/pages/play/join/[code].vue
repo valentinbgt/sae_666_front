@@ -4,6 +4,8 @@ definePageMeta({ middleware: "auth" });
 const route = useRoute();
 const code = String(route.params.code);
 
+useHead({ title: `Rejoindre ${code} - Crooak` })
+
 const { me, fetchMe } = useMe();
 const { joinGame } = useGame();
 

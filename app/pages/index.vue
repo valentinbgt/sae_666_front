@@ -446,6 +446,8 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 
+useHead({ title: 'Crooak' })
+
 const localePath = useLocalePath()
 
 // Parallax au scroll sur les décorations et le fond des sections 4/5
